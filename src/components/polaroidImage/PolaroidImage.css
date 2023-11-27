@@ -30,6 +30,7 @@
 .subTitle {
     background-color: var(--light-purple);
     color: var(--purple);
+	text-align: center;
 }
 
 .polaroid:hover .deleteButton {
