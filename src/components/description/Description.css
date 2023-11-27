@@ -1,0 +1,26 @@
+.zoomSubTitle {
+	background-color: var(--light-purple);
+	box-sizing: border-box;
+
+	border: 2px dotted var(--purple);
+	border-radius: 4px;
+	padding: 1em .5em;
+}
+
+.descTitle {
+	color: var(--purple);
+	width: 100%;
+	display: flex;
+	align-items: center;
+}
+
+.inputAndButton {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+}
+
+.saveDesc {
+	position: inherit;
+	visibility: visible;
+}

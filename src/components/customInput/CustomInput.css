@@ -1,0 +1,11 @@
+.customInput {
+	padding: .5em;
+	margin-left: .5em;
+	background: linear-gradient(45deg, var(--background-color), var(--light-purple));
+	outline-color: var(--background-color);
+	color: var(--purple);
+	border: 0 none;
+	border-radius: 4px;
+	outline-width: 1px;
+	width: 90%;
+}

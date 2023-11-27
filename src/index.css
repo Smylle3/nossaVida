@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+	--background-color: #FBEAFF;
+	
+	--purple: #845EC2;
+	--pink: #D65DB1;
+	--pink-transparent: rgba(214, 92, 177, .3);
+	--pink-two: #FF6F91;
+	--light-purple: #FDF7FF;	
+	--brown: #B0A8B9;
+	--white: #fff
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	font-family: 'Libre Baskerville', serif;
+}
+
+body {
+	background-color: var(--background-color);
+}
+
+/* width */
+::-webkit-scrollbar {
+	width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+	background: var(--background-color);
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+	background: var(--purple);
+	border-radius: 1px;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+	background: var(--pink);
+  }

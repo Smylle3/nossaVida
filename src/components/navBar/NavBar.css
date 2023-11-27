@@ -1,0 +1,90 @@
+.nav {
+	width: 100%;
+	margin: 0 auto;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 10vh;
+	gap: 2em;
+	position: fixed;
+	z-index: 99;
+	background-color: var(--background-color);
+	box-shadow: 0px 0px 25px -5px var(--purple);
+}
+
+.title {
+	margin: 0 none;
+	font-size: 2em;
+	font-weight: bold;
+	background: radial-gradient(var(--purple), var(--pink), var(--pink-two));
+	-webkit-background-clip: text;
+	color: transparent;
+	margin: 0;
+}
+
+.uploadModal {
+	z-index: 99;
+	background-color: var(--white);
+	position: absolute;
+	min-width: 350px;
+	height: 50%;
+	min-height: 350px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 8px;
+	box-sizing: border-box;
+	padding: 1em;
+}
+
+.selectGrid {
+	position: absolute;
+	color: var(--pink);
+	
+	right: 1em;
+
+	display: flex;
+	gap: .25em;
+}
+
+.line {
+	border: 1px solid var(--pink);
+}
+
+.typeGrid {
+	display: flex;
+	color: var(--pink);
+	background-color: transparent;
+	border-radius: 5px;
+	padding: .2em;
+	transition: all .25s;
+}
+
+.typeGrid:hover {
+	background-color: var(--pink-transparent);
+}
+
+.gridSelected {
+	background-color: var(--pink-transparent);
+}
+
+.hamburguerMenu {
+	border: 1px solid var(--pink);
+	border-radius: 5px;
+}
+
+.newImageMobile {
+	visibility: visible;
+	position: fixed;
+	bottom: 25px;
+	right: 25px;
+	width: 57px;
+	height: 57px;
+	box-shadow: 0px 0px 15px 5px var(--light-purple);
+	transition: all .2s;
+	border: 2px solid var(--light-purple);
+}
+
+.newImageMobile:active {
+	box-shadow: 0px 0px 15px 0px transparent;
+}
