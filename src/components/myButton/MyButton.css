@@ -1,37 +1,37 @@
 .myButton {
-	padding: .5em .25em;
-	border-radius: 5px;
-	border: 0 none;
-	background: linear-gradient(90deg, var(--purple), var(--pink));
-	color: var(--light-purple);
-	cursor: pointer;
-	transition: all .5s;
+    padding: 0.5em 0.25em;
+    border-radius: 5px;
+    border: 0 none;
+    background: linear-gradient(90deg, var(--purple), var(--pink));
+    color: var(--light-purple);
+    cursor: pointer;
+    transition: all 0.5s;
 }
 
 .myButton:hover {
-	box-shadow: 0px 0px 20px 0px var(--purple);
+    box-shadow: 0px 0px 20px 0px var(--purple);
 }
 
 .fixedButton {
-	position: absolute;
-	left: 1em;
+    position: absolute;
+    left: 1em;
 }
 
 .edgeButton {
-	position: absolute;
-	visibility: hidden;
+    position: absolute;
+    visibility: hidden;
 
-	display: flex;
-	align-items: center;
-	justify-content: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-	height: 30px;
-	width: 30px;
+    height: 30px;
+    width: 30px;
 
-	background-color: var(--purple);
-	border: 0 none;
-	border-radius: 50px;
-	font-size: large;
-	color: var(--background-color);
-	cursor: pointer;
+    background-color: var(--purple);
+    border: 0 none;
+    border-radius: 50px;
+    font-size: large;
+    color: var(--background-color);
+    cursor: pointer;
 }

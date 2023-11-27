@@ -1,24 +1,24 @@
 .footerContainer {
-	background: linear-gradient(0deg, var(--purple), var(--background-color));
-	height: 15vh;
-	gap: .5em;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	flex-direction: column;
+    background: linear-gradient(0deg, var(--purple), var(--background-color));
+    height: 15vh;
+    gap: 0.5em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 }
 
 .footerText {
-	font-size: 1.3em;
-	font-weight: bold;
-	background: var(--purple);
-	-webkit-background-clip: text;
-	color: transparent;
-	text-align: center;
+    font-size: 1.3em;
+    font-weight: bold;
+    background: var(--purple);
+    -webkit-background-clip: text;
+    color: transparent;
+    text-align: center;
 }
 
-.catEye{
-	display: flex;
-	gap: .25em;
-	color: var(--background-color);
+.catEye {
+    display: flex;
+    gap: 0.25em;
+    color: var(--background-color);
 }

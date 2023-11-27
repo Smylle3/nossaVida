@@ -3,11 +3,11 @@ import ImageGallery from '../components/imageGallery/ImageGallery'
 import Footer from '../components/footer/Footer'
 
 export const Home = () => {
-	return (
-		<div>
-			<NavBar />
-			<ImageGallery />
-			<Footer />
-		</div>
-	)
+    return (
+        <div>
+            <NavBar />
+            <ImageGallery />
+            <Footer />
+        </div>
+    )
 }
