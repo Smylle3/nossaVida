@@ -1,48 +1,49 @@
-import { useState } from 'react'
-import { BsCloudUploadFill, BsFileImage } from 'react-icons/bs'
-import { IoCheckmarkDoneCircle } from 'react-icons/io5'
-import { MdDelete } from 'react-icons/md'
-import { Circle } from 'rc-progress'
-import useStorage from '../../hooks/useStorage'
-import MyButton from '../myButton/MyButton'
-import './UploadForm.css'
+import { useState } from 'react';
+import { BsCloudUploadFill, BsFileImage } from 'react-icons/bs';
+import { IoCheckmarkDoneCircle } from 'react-icons/io5';
+import { MdDelete } from 'react-icons/md';
+import { Circle } from 'rc-progress';
+
+import useStorage from '../../hooks/useStorage';
+import MyButton from '../myButton/MyButton';
+import './UploadForm.css';
 
 export default function UploadForm() {
-	const { startUpload, loading } = useStorage()
-	const [subTitle, setSubTitle] = useState<string>('')
-	const [selectedFile, setSelectedFile] = useState<File | null>(null)
-	const [previewUrl, setPreviewUrl] = useState<string | null>(null)
+	const { startUpload, loading } = useStorage();
+	const [subTitle, setSubTitle] = useState<string>('');
+	const [selectedFile, setSelectedFile] = useState<File | null>(null);
+	const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
 	const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		handleFile(e.target.files)
-	}
+		handleFile(e.target.files);
+	};
 
 	const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
-		e.preventDefault()
-		handleFile(e.dataTransfer.files)
-	}
+		e.preventDefault();
+		handleFile(e.dataTransfer.files);
+	};
 
 	const handleFile = (files: FileList | null) => {
 		if (files && files[0]) {
-			const file = files[0]
-			console.log(file)
-			const reader = new FileReader()
+			const file = files[0];
+			console.log(file);
+			const reader = new FileReader();
 			reader.onload = () => {
-				setPreviewUrl(reader.result as string)
-			}
-			reader.readAsDataURL(file)
-			setSelectedFile(files[0])
+				setPreviewUrl(reader.result as string);
+			};
+			reader.readAsDataURL(file);
+			setSelectedFile(files[0]);
 		}
-	}
+	};
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault()
+		e.preventDefault();
 		if (selectedFile) {
-			startUpload(selectedFile, subTitle)
+			startUpload(selectedFile, subTitle);
 		}
-		setSelectedFile(null)
-		setPreviewUrl(null)
-	}
+		setSelectedFile(null);
+		setPreviewUrl(null);
+	};
 
 	return (
 		<div className="formContainer">
@@ -72,8 +73,8 @@ export default function UploadForm() {
 							<div className="imagePreview">
 								<MyButton
 									onClick={() => {
-										setPreviewUrl(null)
-										setSelectedFile(null)
+										setPreviewUrl(null);
+										setSelectedFile(null);
 									}}
 									type="edge"
 									className="deletePreview"
@@ -124,5 +125,5 @@ export default function UploadForm() {
 				</form>
 			)}
 		</div>
-	)
+	);
 }

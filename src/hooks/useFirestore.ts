@@ -1,85 +1,86 @@
 import {
-    collection,
-    deleteDoc,
-    doc,
-    onSnapshot,
-    orderBy,
-    query,
-    updateDoc,
-} from 'firebase/firestore'
-import { useEffect, useState } from 'react'
-import { db, storage } from '../firebase/config'
-import { Image } from '../types/imageType'
-import { deleteObject, ref } from 'firebase/storage'
+	collection,
+	deleteDoc,
+	doc,
+	onSnapshot,
+	orderBy,
+	query,
+	updateDoc,
+} from 'firebase/firestore';
+import { useEffect, useState } from 'react';
+import { deleteObject, ref } from 'firebase/storage';
+
+import { db, storage } from '../firebase/config';
+import { Image } from '../types/imageType';
 
 export default function useFirestore(collectionName: string) {
-    const [docs, setDocs] = useState<Image[]>([])
-    const [isLoading, setIsLoading] = useState<boolean>(true)
+	const [docs, setDocs] = useState<Image[]>([]);
+	const [isLoading, setIsLoading] = useState<boolean>(true);
 
-    useEffect(() => {
-        let unsubscribe: () => void
-        const getData = async () => {
-            try {
-                const q = query(
-                    collection(db, collectionName),
-                    orderBy('uploadAt', 'desc'),
-                )
-                unsubscribe = onSnapshot(q, (querySnapshot) => {
-                    const images: Image[] = []
-                    querySnapshot.forEach((doc) => {
-                        const imageFromDoc: Image = {
-                            id: doc.id,
-                            uploadAt: doc.data()?.uploadAt,
-                            imageName: doc.data()?.imageName,
-                            imageFormat: doc.data()?.imageFormat,
-                            imageUrl: doc.data()?.imageUrl,
-                            lastModifiedDate: doc.data()?.lastModifiedDate,
-                            subtitle: doc.data()?.subtitle,
-                        }
-                        images.push(imageFromDoc)
-                    })
-                    setDocs(images)
-                })
-            } catch (error) {
-                console.log(error)
-            } finally {
-                setIsLoading(false)
-            }
-        }
+	useEffect(() => {
+		let unsubscribe: () => void;
+		const getData = async () => {
+			try {
+				const q = query(
+					collection(db, collectionName),
+					orderBy('uploadAt', 'desc'),
+				);
+				unsubscribe = onSnapshot(q, (querySnapshot) => {
+					const images: Image[] = [];
+					querySnapshot.forEach((doc) => {
+						const imageFromDoc: Image = {
+							id: doc.id,
+							uploadAt: doc.data()?.uploadAt,
+							imageName: doc.data()?.imageName,
+							imageFormat: doc.data()?.imageFormat,
+							imageUrl: doc.data()?.imageUrl,
+							lastModifiedDate: doc.data()?.lastModifiedDate,
+							subtitle: doc.data()?.subtitle,
+						};
+						images.push(imageFromDoc);
+					});
+					setDocs(images);
+				});
+			} catch (error) {
+				console.log(error);
+			} finally {
+				setIsLoading(false);
+			}
+		};
 
-        collectionName && getData()
-        return () => unsubscribe && unsubscribe()
-    }, [collectionName])
+		collectionName && getData();
+		return () => unsubscribe && unsubscribe();
+	}, [collectionName]);
 
-    const deleteImage = async (
-        docName: string,
-        pathName: string,
-        imageName: string,
-        imageFormat: string,
-    ) => {
-        const desertRef = ref(storage, `${pathName}/${imageName}.${imageFormat}`)
-        await deleteDoc(doc(db, collectionName, docName))
-        await deleteObject(desertRef)
-    }
+	const deleteImage = async (
+		docName: string,
+		pathName: string,
+		imageName: string,
+		imageFormat: string,
+	) => {
+		const desertRef = ref(storage, `${pathName}/${imageName}.${imageFormat}`);
+		await deleteDoc(doc(db, collectionName, docName));
+		await deleteObject(desertRef);
+	};
 
-    const updateImage = async (docName: string, newSubtitle: string) => {
-        const docRef = doc(db, collectionName, docName)
+	const updateImage = async (docName: string, newSubtitle: string) => {
+		const docRef = doc(db, collectionName, docName);
 
-        try {
-            updateDoc(docRef, {
-                subtitle: newSubtitle,
-            })
-        } catch (error) {
-            console.log(error)
-            return 'falied'
-        }
-        return 'sucess'
-    }
+		try {
+			updateDoc(docRef, {
+				subtitle: newSubtitle,
+			});
+		} catch (error) {
+			console.log(error);
+			return 'falied';
+		}
+		return 'sucess';
+	};
 
-    return {
-        docs,
-        isLoading,
-        deleteImage,
-        updateImage,
-    }
+	return {
+		docs,
+		isLoading,
+		deleteImage,
+		updateImage,
+	};
 }
