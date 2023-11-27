@@ -11,7 +11,6 @@ export default function CustomInput({ onChange, value }: CustomInputProps) {
 			className="customInput"
 			onChange={onChange}
 			value={value}
-			autoFocus
 		/>
 	)
 }
