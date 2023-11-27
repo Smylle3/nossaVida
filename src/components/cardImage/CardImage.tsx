@@ -4,7 +4,7 @@ import { Image } from '../../types/imageType'
 import MyButton from '../myButton/MyButton';
 import useFirestore from '../../hooks/useFirestore';
 import ImageScreenModal from "../modal/ImageScreenModal";
-import "./cardImage.css"
+import "./CardImage.css";
 
 export default function CardImage({ image }: { image: Image, id: number }) {
 	const { deleteImage } = useFirestore("images");
