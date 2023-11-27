@@ -7,8 +7,10 @@ import { Circle } from 'rc-progress';
 import useStorage from '../../hooks/useStorage';
 import MyButton from '../myButton/MyButton';
 import './UploadForm.css';
+import { useAuth } from '../../hooks/useAuth';
 
 export default function UploadForm() {
+	const { user } = useAuth();
 	const { startUpload, loading } = useStorage();
 	const [subTitle, setSubTitle] = useState<string>('');
 	const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -24,9 +26,9 @@ export default function UploadForm() {
 	};
 
 	const handleFile = (files: FileList | null) => {
+		if (!user) return;
 		if (files && files[0]) {
 			const file = files[0];
-			console.log(file);
 			const reader = new FileReader();
 			reader.onload = () => {
 				setPreviewUrl(reader.result as string);
@@ -67,7 +69,7 @@ export default function UploadForm() {
 					)}
 				</div>
 			) : (
-				<form onSubmit={handleSubmit} className="myForm">
+				<form onSubmit={(e) => handleSubmit(e)} className="myForm">
 					{previewUrl ? (
 						<>
 							<div className="imagePreview">
