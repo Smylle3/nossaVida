@@ -1,12 +1,17 @@
 import { useState } from 'react';
 import { BsGrid3X3Gap, BsViewStacked, BsList } from 'react-icons/bs';
 import { MdAddToPhotos } from 'react-icons/md';
+import { IoLogOut } from 'react-icons/io5';
+import { signOut } from 'firebase/auth';
+import { toast } from 'react-toastify';
 
+import { auth } from '../../firebase/config';
 import { useApp } from '../../hooks/useApp';
 import UploadForm from '../uploadForm/UploadForm';
 import MyModal from '../modal/MyModal';
-import MyButton from '../myButton/MyButton';
 import MyDropDown from '../myDropDown/MyDropDown';
+import MyButton from '../myButton/MyButton';
+
 import './NavBar.css';
 
 export default function NavBar() {
@@ -20,6 +25,16 @@ export default function NavBar() {
 
 	const openModal = () => {
 		setModalIsOpen(true);
+	};
+
+	const logout = async () => {
+		try {
+			await signOut(auth);
+		} catch (error) {
+			toast.error('Erro ao fazer login 😢', {
+				position: toast.POSITION.TOP_CENTER,
+			});
+		}
 	};
 
 	return (
@@ -59,6 +74,13 @@ export default function NavBar() {
 								<BsViewStacked size={25} />
 							</div>
 						</div>
+						<MyButton
+							type="edge"
+							className="logoutWebButton"
+							onClick={logout}
+						>
+							<IoLogOut size={20} />
+						</MyButton>
 					</>
 				)}
 				<MyModal

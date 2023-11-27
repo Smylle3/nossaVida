@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify';
 import {
 	collection,
 	deleteDoc,
@@ -12,12 +13,15 @@ import { deleteObject, ref } from 'firebase/storage';
 
 import { db, storage } from '../firebase/config';
 import { Image } from '../types/imageType';
+import { useAuth } from './useAuth';
 
 export default function useFirestore(collectionName: string) {
+	const { user } = useAuth();
 	const [docs, setDocs] = useState<Image[]>([]);
 	const [isLoading, setIsLoading] = useState<boolean>(true);
 
 	useEffect(() => {
+		if (!user) return;
 		let unsubscribe: () => void;
 		const getData = async () => {
 			try {
@@ -42,7 +46,10 @@ export default function useFirestore(collectionName: string) {
 					setDocs(images);
 				});
 			} catch (error) {
-				console.log(error);
+				toast('Erro ao carregar informações! 😢', {
+					position: 'top-center',
+					type: 'error',
+				});
 			} finally {
 				setIsLoading(false);
 			}
@@ -50,7 +57,7 @@ export default function useFirestore(collectionName: string) {
 
 		collectionName && getData();
 		return () => unsubscribe && unsubscribe();
-	}, [collectionName]);
+	}, [collectionName, user]);
 
 	const deleteImage = async (
 		docName: string,
