@@ -79,7 +79,7 @@ export default function UploadForm() {
 								<div className="previewPhoto">
 									<img className="previewImage" src={previewUrl} alt="image" />
 								</div>
-								<input autoFocus onChange={(e) => setSubTitle(e.target.value)} className="previewSubTitle" type="text" placeholder="Descrição" />
+								<input onChange={(e) => setSubTitle(e.target.value)} className="previewSubTitle" type="text" placeholder="Descrição" />
 							</div>
 							<MyButton type="free" formType="submit">⬆️ Fazer Upload ⬆️</MyButton>
 						</>
