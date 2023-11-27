@@ -47,7 +47,7 @@ export default function Description({ text, title, isEdit, imageId }: Descriptio
 	return (
 		<div className="zoomSubTitle">
 			<div className="descTitle">
-				<span className="spanTitle">{title}: </span>
+				<span className="spanTitle">{title}</span>
 				{isEdit ? (
 					<form className="inputAndButton" onSubmit={(e) => onSave(e)}>
 						<CustomInput value={value} onChange={handleChange} />

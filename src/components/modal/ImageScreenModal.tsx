@@ -71,17 +71,17 @@ export default function ImageScreenModal({
 					</div>
 					<Description
 						text={image.subtitle}
-						title="Descrição"
+						title="Descrição:"
 						isEdit
 						imageId={image.id}
 					/>
 					<Description
 						text={lastModified.toLocaleString()}
-						title="Data da ultima alteração"
+						title="Data da ultima alteração:"
 					/>
 					<Description
 						text={timestamp.toLocaleString()}
-						title="Data de upload"
+						title="Data de upload:"
 					/>
 					<MyButton
 						type="free"
