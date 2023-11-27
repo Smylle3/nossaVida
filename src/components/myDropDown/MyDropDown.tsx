@@ -40,10 +40,7 @@ export default function MyDropDown({ isOpen }: MyDropDownProps) {
 						<BsGrid3X3Gap /> Visualizar por galeria
 					</p>
 					<div className="line" />
-					<p
-						className={`pTypeGrid ${!gridType && 'gridSelected'}`}
-						onClick={logout}
-					>
+					<p className={`pTypeGrid`} onClick={logout}>
 						<MdLogout /> Fazer logout
 					</p>
 				</div>
