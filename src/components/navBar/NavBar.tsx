@@ -22,35 +22,38 @@ export default function NavBar() {
 	};
 
 	return (
-		<div className="nav">
-			{isMobile ?
-				<>
-					<div className="selectGrid hamburguerMenu" onClick={toggleMenu}>
-						<BsList size={30} />
-						<MyDropDown isOpen={isOpenMenu} />
-					</div>
-					<MyButton type="edge" className="newImageMobile" onClick={openModal} >
-						<MdAddToPhotos size={20} />
-					</MyButton>
-				</>
-				:
-				<>
-					<MyButton type="fixed" onClick={openModal}>🥰 Guardar lembrança 🥰</MyButton>
-					<div className="selectGrid" >
-						<div className={`typeGrid ${gridType && 'gridSelected'}`} onClick={() => setGridType(true)} >
-							<BsGrid3X3Gap size={25} />
+		<>
+			<div className="nav">
+				{isMobile ?
+					<>
+						<div className="selectGrid hamburguerMenu" onClick={toggleMenu}>
+							<BsList size={30} />
+							<MyDropDown isOpen={isOpenMenu} />
 						</div>
-						<div className="line" />
-						<div className={`typeGrid ${!gridType && 'gridSelected'}`} onClick={() => setGridType(false)} >
-							<BsViewStacked size={25} />
+						<MyButton type="edge" className="newImageMobile" onClick={openModal} >
+							<MdAddToPhotos size={20} />
+						</MyButton>
+					</>
+					:
+					<>
+						<MyButton type="fixed" onClick={openModal}>🥰 Guardar lembrança 🥰</MyButton>
+						<div className="selectGrid" >
+							<div className={`typeGrid ${gridType && 'gridSelected'}`} onClick={() => setGridType(true)} >
+								<BsGrid3X3Gap size={25} />
+							</div>
+							<div className="line" />
+							<div className={`typeGrid ${!gridType && 'gridSelected'}`} onClick={() => setGridType(false)} >
+								<BsViewStacked size={25} />
+							</div>
 						</div>
-					</div>
-				</>
-			}
-			<MyModal className="uploadModal" modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} >
-				<UploadForm />
-			</MyModal>
-			<h1 className="title">❤️ Nossa Vida ❤️</h1>
-		</div>
+					</>
+				}
+				<MyModal className="uploadModal" modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} >
+					<UploadForm />
+				</MyModal>
+				<h1 className="title">❤️ Nossa Vida ❤️</h1>
+			</div>
+			<div className="back" />
+		</>
 	)
 }

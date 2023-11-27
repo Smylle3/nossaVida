@@ -4,7 +4,7 @@ import Footer from '../components/footer/Footer'
 
 export const Home = () => {
 	return (
-		<div >
+		<div>
 			<NavBar />
 			<ImageGallery />
 			<Footer />
