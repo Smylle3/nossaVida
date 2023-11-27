@@ -1,5 +1,3 @@
-import React from 'react'
-
 export const Signup = () => {
 	return (
 		<div className="hero min-h-screen bg-base-200">
