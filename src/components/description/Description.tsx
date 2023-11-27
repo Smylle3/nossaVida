@@ -4,7 +4,7 @@ import { MdSave, MdOutlineCheck } from 'react-icons/md';
 import MyButton from '../myButton/MyButton';
 import './Description.css';
 import useFirestore from '../../hooks/useFirestore';
-import CustomInput from '../customInput/CustomInput';
+import SimpleInput from '../customInput/SimpleInput';
 
 interface DescriptionProps {
 	text: string;
@@ -50,7 +50,7 @@ export default function Description({ text, title, isEdit, imageId }: Descriptio
 				<span className="spanTitle">{title}</span>
 				{isEdit ? (
 					<form className="inputAndButton" onSubmit={(e) => onSave(e)}>
-						<CustomInput value={value} onChange={handleChange} />
+						<SimpleInput onChange={handleChange} value={value} />
 						{isChanging ? (
 							<MyButton type="edge" className="saveDesc" formType="submit">
 								<MdSave />
