@@ -1,9 +1,0 @@
-{
-	"routes": [
-		{
-			"handle": "react",
-			"src": "/([^/]+)",
-			"dest": "/index.html"
-		}
-	]
-}
