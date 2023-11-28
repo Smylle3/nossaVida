@@ -11,7 +11,5 @@ export default function PrivateRoutes({ children }: PrivateProps) {
 
 	if (!user) {
 		return <Navigate to="/signup" replace={true} />;
-	}
-
-	return children;
+	} else return children;
 }

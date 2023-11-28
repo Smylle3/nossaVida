@@ -11,7 +11,5 @@ export default function PublicRoutes({ children }: PublicProps) {
 
 	if (user) {
 		return <Navigate to="/" replace={true} />;
-	}
-
-	return children;
+	} else return children;
 }
