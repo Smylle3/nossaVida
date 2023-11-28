@@ -4,7 +4,7 @@ import { Home } from './pages/Home';
 import { AppProvider } from './context/myContext';
 import { Signup } from './pages/Signup';
 import { AuthProvider } from './context/authContext';
-import PublicRoutes from './routes/PublicRoutes';
+//import PublicRoutes from './routes/PublicRoutes';
 import PrivateRoutes from './routes/PrivateRoutes';
 
 export default function App() {
