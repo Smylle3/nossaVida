@@ -73,3 +73,12 @@
     height: 40px;
     width: 40px;
 }
+
+.mobileDownloadButton {
+    visibility: visible;
+    position: absolute;
+    right: 45px;
+    bottom: -20px;
+    height: 40px;
+    width: 40px;
+}

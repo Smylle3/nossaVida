@@ -1,5 +1,6 @@
 import React from 'react';
-import { MdClose } from 'react-icons/md';
+import { MdClose, MdOutlineFileDownload } from 'react-icons/md';
+import { Link } from 'react-router-dom';
 
 import MyModal from './MyModal';
 import Description from '../description/Description';
@@ -56,6 +57,11 @@ export default function ImageScreenModal({
 					>
 						<MdClose size={25} />
 					</MyButton>
+					<Link to={image.imageUrl} download target="_blank">
+						<MyButton type="edge" className="mobileDownloadButton">
+							<MdOutlineFileDownload size={25} />
+						</MyButton>
+					</Link>
 				</div>
 			</MyModal>
 		);

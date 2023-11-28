@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { MdDelete, MdFullscreen } from 'react-icons/md';
+import { MdDelete, MdFullscreen, MdOutlineFileDownload } from 'react-icons/md';
+import { Link } from 'react-router-dom';
 
 import { Image } from '../../types/imageType';
 import useFirestore from '../../hooks/useFirestore';
@@ -34,6 +35,15 @@ export default function PolaroidImage({ image }: { image: Image; id: number }) {
 				>
 					<MdDelete />
 				</MyButton>
+				<Link to={image.imageUrl} download target="_blank">
+					<MyButton
+						position={{ bottom: position, right: position }}
+						className="downloadButton"
+						type="edge"
+					>
+						<MdOutlineFileDownload />
+					</MyButton>
+				</Link>
 				<MyButton
 					position={{ top: position, right: position }}
 					className="zoomButton"

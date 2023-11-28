@@ -44,3 +44,11 @@
 .polaroid:hover .zoomButton {
     visibility: visible;
 }
+
+.polaroid:hover .downloadButton {
+	visibility: visible;
+}
+
+.downloadButton {
+	cursor: pointer;
+}
