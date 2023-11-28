@@ -34,4 +34,5 @@ export const anaNicknames = [
 	'MINHA DIVA',
 	'Minha flor do deserto',
 	'Xulezinha',
+	'Cabecinha de pão hhfehhheh',
 ];
