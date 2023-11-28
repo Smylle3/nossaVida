@@ -20,14 +20,7 @@ export default function App() {
 							</PrivateRoutes>
 						}
 					/>
-					<Route
-						path="/signup"
-						element={
-							<PublicRoutes>
-								<Signup />
-							</PublicRoutes>
-						}
-					/>
+					<Route path="/signup" element={<Signup />} />
 				</Routes>
 			</AppProvider>
 		</AuthProvider>
