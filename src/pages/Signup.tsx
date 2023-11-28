@@ -5,12 +5,14 @@ import {
 } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
+import { useEffect, useState } from 'react';
 
 import CustomInput from '../components/customInput/CustomInput';
 import './style.css';
 import MyButton from '../components/myButton/MyButton';
 import { auth } from '../firebase/config';
 import { useApp } from '../hooks/useApp';
+import { anaNicknames } from '../utils/Nicknames';
 
 interface FormValue {
 	email: string;
@@ -18,6 +20,7 @@ interface FormValue {
 }
 
 export const Signup = () => {
+	const [randomNickname, setRandomNickname] = useState<number>(0);
 	const { isMobile } = useApp();
 	const navigate = useNavigate();
 	const { handleSubmit, control } = useForm<FormValue>({
@@ -50,12 +53,19 @@ export const Signup = () => {
 		} else notify();
 	});
 
+	useEffect(() => {
+		const randomNumber = Math.floor(Math.random() * anaNicknames.length);
+		setRandomNickname(randomNumber);
+	}, []);
+
 	if (isMobile)
 		return (
 			<div className="loginMobileContainer">
 				<div className="recieveMobileContainer">
 					<h3 className="appTitle">❤️ NOSSA VIDA ❤️</h3>
-					<h2 className="recieveContainer">OI ANOCA (ou JUAU)</h2>
+					<h2 className="recieveContainer">
+						OI {anaNicknames[randomNickname]}!!
+					</h2>
 				</div>
 				<form className="formLoginMobileContainer" onSubmit={onSubmit}>
 					<h1>LOGIN</h1>
@@ -87,7 +97,9 @@ export const Signup = () => {
 			<div className="loginContainer">
 				<div className="leftSideContainer">
 					<h3 className="appTitle">❤️ NOSSA VIDA ❤️</h3>
-					<h1 className="recieveContainer">OI ANOCA (ou JUAU)</h1>
+					<h1 className="recieveContainer">
+						Oii {anaNicknames[randomNickname]}!!
+					</h1>
 				</div>
 				<form className="formLoginContainer" onSubmit={onSubmit}>
 					<h1>LOGIN</h1>
