@@ -1,5 +1,5 @@
 .mini {
-    background-color: aqua;
+	background-color: var(--pink-transparent);
     width: 1fr;
     height: 10em;
 }
