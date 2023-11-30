@@ -4,13 +4,19 @@ import { v4 as uuidv4 } from 'uuid';
 import { addDoc, collection } from 'firebase/firestore';
 
 import { db, storage } from '../firebase/config';
+import { Album } from '../types/albumsType';
 
 export default function useStorage() {
 	const [error, setError] = useState<Error | null>(null);
 	const [url, setUrl] = useState<string | null>(null);
 	const [loading, setLoading] = useState<number>(-1);
 
-	const startUpload = (file: File, subtitle: string) => {
+	const startUpload = async (
+		file: File,
+		subtitle: string,
+		albunsSelected: Album[],
+		setOpenModal: React.Dispatch<React.SetStateAction<boolean>>,
+	) => {
 		if (!file) return;
 
 		const nameFIle = uuidv4();
@@ -36,9 +42,11 @@ export default function useStorage() {
 					imageUrl: downloadURL,
 					subtitle: subtitle,
 					lastModifiedDate: file.lastModified,
+					album: albunsSelected,
 					uploadAt: new Date(),
 				});
 				setLoading(-1);
+				setOpenModal(false);
 			},
 		);
 	};

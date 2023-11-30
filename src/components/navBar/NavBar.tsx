@@ -1,27 +1,23 @@
 import { useState } from 'react';
-import { BsGrid3X3Gap, BsViewStacked, BsList } from 'react-icons/bs';
+import { BsGrid3X3Gap, BsViewStacked, BsList, BsFilter } from 'react-icons/bs';
 import { MdAddToPhotos } from 'react-icons/md';
 import { IoLogOut } from 'react-icons/io5';
 import { signOut } from 'firebase/auth';
-import { toast } from 'react-toastify';
+import { message } from 'antd';
 
+import './NavBar.css';
 import { auth } from '../../firebase/config';
 import { useApp } from '../../hooks/useApp';
 import UploadForm from '../uploadForm/UploadForm';
-import MyModal from '../modal/MyModal';
-import MyDropDown from '../myDropDown/MyDropDown';
-import MyButton from '../myButton/MyButton';
-
-import './NavBar.css';
+import MyDropDown from '../defaultComponents/myDropDown/MyDropDown';
+import MyButton from '../defaultComponents/myButton/MyButton';
+import useFirestore from '../../hooks/useFirestore';
 
 export default function NavBar() {
 	const { gridType, setGridType, isMobile } = useApp();
+	const { albums } = useFirestore();
+	const [messageApi, contextHolder] = message.useMessage();
 	const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
-	const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false);
-
-	const toggleMenu = () => {
-		setIsOpenMenu(!isOpenMenu);
-	};
 
 	const openModal = () => {
 		setModalIsOpen(true);
@@ -31,35 +27,39 @@ export default function NavBar() {
 		try {
 			await signOut(auth);
 		} catch (error) {
-			toast.error('Erro ao fazer login 😢', {
-				position: toast.POSITION.TOP_CENTER,
+			messageApi.open({
+				type: 'error',
+				content: 'Erro ao fazer logout 😢',
 			});
 		}
 	};
 
 	return (
 		<>
+			{contextHolder}
 			<div className="nav">
 				{isMobile ? (
 					<>
-						<div className="selectGrid hamburguerMenu" onClick={toggleMenu}>
+						<MyDropDown type="menu" iconPosition="menuPosition">
 							<BsList size={30} />
-							<MyDropDown isOpen={isOpenMenu} />
-						</div>
-						<MyButton
-							type="edge"
-							className="newImageMobile"
-							onClick={openModal}
+						</MyDropDown>
+						<MyDropDown
+							type="filter"
+							albums={albums}
+							iconPosition="filterPosition"
 						>
+							<BsFilter size={30} />
+						</MyDropDown>
+						<button className="logoutButton" onClick={openModal}>
 							<MdAddToPhotos size={20} />
-						</MyButton>
+						</button>
 					</>
 				) : (
 					<>
 						<MyButton type="fixed" onClick={openModal}>
 							🥰 Guardar lembrança 🥰
 						</MyButton>
-						<div className="selectGrid">
+						<div className="webNavbarOptions">
 							<div
 								className={`typeGrid ${gridType && 'gridSelected'}`}
 								onClick={() => setGridType(true)}
@@ -73,23 +73,21 @@ export default function NavBar() {
 							>
 								<BsViewStacked size={25} />
 							</div>
+							<div className="line" />
+							<MyDropDown
+								type="filter"
+								albums={albums}
+								iconPosition="typeGrid"
+							>
+								<BsFilter size={30} />
+							</MyDropDown>
 						</div>
-						<MyButton
-							type="edge"
-							className="logoutWebButton"
-							onClick={logout}
-						>
+						<button className="logoutButton" onClick={logout}>
 							<IoLogOut size={20} />
-						</MyButton>
+						</button>
 					</>
 				)}
-				<MyModal
-					className="uploadModal"
-					modalIsOpen={modalIsOpen}
-					setModalIsOpen={setModalIsOpen}
-				>
-					<UploadForm />
-				</MyModal>
+				<UploadForm modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} />
 				<h1 className="title">❤️ Nossa Vida ❤️</h1>
 			</div>
 			<div className="back" />

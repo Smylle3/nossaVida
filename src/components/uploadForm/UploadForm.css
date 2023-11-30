@@ -1,131 +1,121 @@
-.formContainer {
-    height: 100%;
-    width: 100%;
-}
-
-.progress {
-    height: 100%;
-    width: 100%;
-    gap: 1em;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    color: var(--purple);
-}
-
-.myForm {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    height: 100%;
-    max-height: 100%;
-    box-sizing: border-box;
-    gap: 1em;
-}
-
-.inputFile {
-    display: none;
+.formUploadImage {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	height: 100%;
+	max-height: 100%;
+	box-sizing: border-box;
+	gap: 1em;
 }
 
 .dropImage {
-    width: 100%;
-    height: 100%;
-    border: 1px dashed var(--purple);
-    border-radius: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    color: var(--purple);
-    gap: 2em;
-    cursor: pointer;
+	width: 100%;
+	height: 100%;
+	border-radius: 5px;
+	gap: 2em;
+	padding: 3em;
+	color: var(--purple);
+	border: 1px dashed var(--purple);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	box-sizing: border-box;
+	cursor: pointer;
+}
+
+.inputFile {
+	display: none;
 }
 
 .customFileInput {
-    background-color: var(--purple);
-    color: #fff;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: all 0.5s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1em;
-}
-
-.customFileInput:hover {
-    box-shadow: 0px 0px 20px 0px var(--purple);
-    /* Cor de fundo ao passar o mouse */
-}
-
-.imagePreview {
-    background-color: var(--light-purple);
-    box-sizing: border-box;
-    box-shadow: 0px 0px 20px -2px var(--purple);
-    width: 300px;
-    height: 350px;
-    gap: 1em;
-    padding: 1em;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    position: relative;
-    user-select: none;
-}
-
-.previewSubTitle {
-    width: 90%;
-    border-radius: 2px;
-    border: 0 none;
-    border-bottom: 1px solid var(--purple);
-    background-color: var(--background-color);
-    color: var(--purple);
-    padding: 0.5em 1em;
-    outline: 0 none;
-    font-size: large;
-    text-align: center;
-}
-
-.previewPhoto {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 90%;
+	background-color: var(--purple);
+	color: var(--light-purple);
+	padding: 10px;
+	border-radius: 5px;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 1em;
 }
 
 .previewImage {
-    width: auto;
-    height: auto;
-    max-width: 100%;
-    max-height: 100%;
-    background-size: cover; /* Isso ajusta o tamanho da imagem para cobrir todo o elemento */
-    background-position: center; /* Isso centraliza a imagem */
+	background-color: var(--light-purple);
+	box-sizing: border-box;
+	box-shadow: 0px 0px 20px -2px var(--purple);
+	width: 300px;
+	height: 350px;
+	gap: 1em;
+	padding: 1em;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	position: relative;
+	user-select: none;
 }
 
-.deletePreview {
-    visibility: visible;
+.previewDelete {
+	visibility: visible;
+}
+
+.previewPhoto {
+	display: flex;
+	justify-content: center;
+	max-height: 90%;
+}
+
+.previewAntdImage {
+	height: 100%;
+	max-height: 100%;
+}
+
+.previewSubTitle {
+	background-color: var(--background-color);
+	color: var(--purple);
+	width: 90%;
+	padding: 0.5em 1em;
+	border: 0 none;
+	outline: 0 none;
+	border-bottom: 1px solid var(--purple);
+	text-align: center;
+}
+
+.previewAlbums {
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+	width: 300px;
+	gap: .2em;
+}
+
+.progress {
+	height: 100%;
+	width: 100%;
+	gap: 1em;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	color: var(--purple);
 }
 
 ::-webkit-input-placeholder {
-    color: var(--purple);
+	color: var(--purple);
 }
 
 :-moz-placeholder {
-    /* Firefox 18- */
-    color: var(--purple);
+	/* Firefox 18- */
+	color: var(--purple);
 }
 
 ::-moz-placeholder {
-    /* Firefox 19+ */
-    color: var(--purple);
+	/* Firefox 19+ */
+	color: var(--purple);
 }
 
 :-ms-input-placeholder {
-    color: var(--purple);
+	color: var(--purple);
 }

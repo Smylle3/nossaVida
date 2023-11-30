@@ -1,0 +1,40 @@
+.newAlbum {
+	background-color: var(--light-purple);
+	border-color: var(--purple);
+	color: var(--purple);
+}
+
+.oldAlbum {
+	display: flex;
+	align-items: center;
+	gap: .3em;
+	cursor: pointer;
+}
+
+.closeButtonTag {
+	color: var(--light-purple);
+}
+
+.createAlbumButton {
+	color: var(--purple);
+	cursor: pointer;
+	border: 1px dashed var(--purple);
+	border-radius: 5px;
+	background-color: var(--light-purple);
+	display: flex;
+	align-items: center;
+}
+
+.newModalInput {
+	width: 60%;
+	background-color: var(--light-purple);
+	color: var(--purple);
+	border: 1px dashed var(--purple);
+	border-radius: 5px;
+}
+
+.newAlbumForm {
+	display: flex;
+	align-items: center;
+	gap: .5em;
+}

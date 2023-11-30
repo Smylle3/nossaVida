@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
-import { Image } from '../../types/imageType';
-import ImageScreenModal from '../modal/ImageScreenModal';
+import { Image } from '../../../types/imageType';
+import ImageScreenModal from '../../defaultComponents/myModal/ImageScreenModal';
 import './MiniImage.css';
 
 export default function MiniImage({ image }: { image: Image }) {

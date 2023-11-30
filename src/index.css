@@ -10,6 +10,7 @@
     --light-purple: #fdf7ff;
     --brown: #b0a8b9;
     --white: #fff;
+	--green: #00C2A8;
 }
 
 * {
@@ -41,4 +42,8 @@ body {
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
     background: var(--pink);
+}
+
+.line {
+	border: 1px solid var(--pink);
 }

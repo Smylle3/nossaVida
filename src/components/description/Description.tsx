@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { MdSave, MdOutlineCheck } from 'react-icons/md';
 
-import MyButton from '../myButton/MyButton';
+import MyButton from '../defaultComponents/myButton/MyButton';
 import './Description.css';
 import useFirestore from '../../hooks/useFirestore';
-import SimpleInput from '../customInput/SimpleInput';
+import SimpleInput from '../defaultComponents/customInput/SimpleInput';
 
 interface DescriptionProps {
 	text: string;
@@ -14,7 +14,7 @@ interface DescriptionProps {
 }
 
 export default function Description({ text, title, isEdit, imageId }: DescriptionProps) {
-	const { updateImage } = useFirestore('images');
+	const { updateImage } = useFirestore();
 	const [value, setValue] = useState<string>(text);
 	const [isChanging, setIsChanging] = useState<boolean>(false);
 	const [isUploaded, setIsUploaded] = useState<boolean>(false);

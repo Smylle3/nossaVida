@@ -1,20 +1,29 @@
 import { useState } from 'react';
 import { BsCloudUploadFill, BsFileImage } from 'react-icons/bs';
-import { IoCheckmarkDoneCircle } from 'react-icons/io5';
 import { MdDelete } from 'react-icons/md';
-import { Circle } from 'rc-progress';
+import { Progress, Image } from 'antd';
 
 import useStorage from '../../hooks/useStorage';
-import MyButton from '../myButton/MyButton';
+import MyButton from '../defaultComponents/myButton/MyButton';
 import './UploadForm.css';
 import { useAuth } from '../../hooks/useAuth';
+import useFirestore from '../../hooks/useFirestore';
+import AlbumTag from '../albumTag/AlbumTag';
+import { Album } from '../../types/albumsType';
+import MyModal from '../defaultComponents/myModal/MyModal';
 
-export default function UploadForm() {
+interface UploadFormProps {
+	modalIsOpen: boolean;
+	setModalIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+export default function UploadForm({ modalIsOpen, setModalIsOpen }: UploadFormProps) {
+	const { albums } = useFirestore();
 	const { user } = useAuth();
 	const { startUpload, loading } = useStorage();
 	const [subTitle, setSubTitle] = useState<string>('');
 	const [selectedFile, setSelectedFile] = useState<File | null>(null);
 	const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+	const [albumSelected, setAlbumSelected] = useState<Album[]>([]);
 
 	const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		handleFile(e.target.files);
@@ -38,94 +47,134 @@ export default function UploadForm() {
 		}
 	};
 
-	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault();
+	const handleSubmit = () => {
 		if (selectedFile) {
-			startUpload(selectedFile, subTitle);
+			startUpload(selectedFile, subTitle, albumSelected, setModalIsOpen);
 		}
+		resetModal();
+	};
+
+	const resetModal = () => {
 		setSelectedFile(null);
 		setPreviewUrl(null);
+		setAlbumSelected([]);
+		setSubTitle('');
+	};
+
+	const removeSelectedAlbum = (album: Album) => {
+		return albumSelected.filter((item) => item.id !== album.id);
+	};
+
+	const addAlbumToImage = (album: Album) => {
+		const hasBeenSelected = albumSelected.find((item) => item.id === album.id);
+		if (!hasBeenSelected) setAlbumSelected((e) => [...(e || []), album]);
+		else {
+			setAlbumSelected(removeSelectedAlbum(album));
+		}
 	};
 
 	return (
-		<div className="formContainer">
-			{loading >= 0 ? (
-				<div className="progress">
-					{loading != 100 ? (
-						<>
-							<Circle
-								percent={loading}
-								strokeWidth={6}
-								strokeColor="#845EC2"
-								trailColor="#B0A8B9"
-							/>
+		<MyModal
+			openModal={modalIsOpen}
+			setOpenModal={setModalIsOpen}
+			afterClose={resetModal}
+		>
+			<div className="formContainer">
+				{loading >= 0 ? (
+					<div className="progress">
+						<Progress
+							percent={Math.floor(loading)}
+							type="circle"
+							strokeColor="#845EC2"
+							trailColor="#B0A8B9"
+							strokeWidth={5}
+							success={{
+								percent: Math.floor(loading),
+								strokeColor: '#00C2A8',
+							}}
+						/>
+						{loading != 100 ? (
 							<span>Estamos fazendo o upload...</span>
-						</>
-					) : (
-						<>
-							<IoCheckmarkDoneCircle size={300} />
-							<div>"Upload realizado com sucesso!"</div>
-						</>
-					)}
-				</div>
-			) : (
-				<form onSubmit={(e) => handleSubmit(e)} className="myForm">
-					{previewUrl ? (
-						<>
-							<div className="imagePreview">
-								<MyButton
-									onClick={() => {
-										setPreviewUrl(null);
-										setSelectedFile(null);
-									}}
-									type="edge"
-									className="deletePreview"
-									position={{ top: -10, left: -10 }}
-								>
-									<MdDelete />
-								</MyButton>
-								<div className="previewPhoto">
-									<img
-										className="previewImage"
-										src={previewUrl}
-										alt="image"
+						) : (
+							<span style={{ color: '#00C2A8' }}>
+								Upload realizado com sucesso!
+							</span>
+						)}
+					</div>
+				) : (
+					<div className="formUploadImage">
+						{previewUrl ? (
+							<>
+								<div className="previewImage">
+									<MyButton
+										onClick={() => {
+											setPreviewUrl(null);
+											setSelectedFile(null);
+										}}
+										type="edge"
+										className="previewDelete"
+										position={{ top: -10, left: -10 }}
+									>
+										<MdDelete />
+									</MyButton>
+									<div className="previewPhoto">
+										<Image
+											src={previewUrl}
+											className="previewAntdImage"
+										/>
+									</div>
+									<input
+										onChange={(e) => setSubTitle(e.target.value)}
+										className="previewSubTitle"
+										type="text"
+										placeholder="Descrição"
 									/>
 								</div>
+								<div className="previewAlbums">
+									{albums.map((album) => (
+										<AlbumTag
+											type="oldAlbum"
+											album={album}
+											key={album.id}
+											colorTag={`${
+												albumSelected.includes(album)
+													? 'success'
+													: '#845ec2'
+											}`}
+											onClick={() => addAlbumToImage(album)}
+										/>
+									))}
+									<AlbumTag type="newAlbum" />
+								</div>
+								<MyButton type="free" onClick={() => handleSubmit()}>
+									⬆️ Fazer Upload ⬆️
+								</MyButton>
+							</>
+						) : (
+							<>
+								<div
+									className="dropImage"
+									onDrop={handleDrop}
+									onDragOver={(e) => e.preventDefault()}
+								>
+									<BsFileImage size={100} /> Arraste e solte
+								</div>
 								<input
-									onChange={(e) => setSubTitle(e.target.value)}
-									className="previewSubTitle"
-									type="text"
-									placeholder="Descrição"
+									onChange={handleFileChange}
+									type="file"
+									accept="image/png, image/jpeg"
+									id="fileInput"
+									className="inputFile"
 								/>
-							</div>
-							<MyButton type="free" formType="submit">
-								⬆️ Fazer Upload ⬆️
-							</MyButton>
-						</>
-					) : (
-						<>
-							<div
-								className="dropImage"
-								onDrop={handleDrop}
-								onDragOver={(e) => e.preventDefault()}
-							>
-								<BsFileImage size={100} /> Arraste e solte
-							</div>
-							<input
-								onChange={handleFileChange}
-								type="file"
-								accept="image/png, image/jpeg"
-								id="fileInput"
-								className="inputFile"
-							/>
-							<label htmlFor="fileInput" className="customFileInput">
-								<BsCloudUploadFill />
-								Ou selecione uma imagem <BsCloudUploadFill />
-							</label>
-						</>
-					)}
-				</form>
-			)}
-		</div>
+								<label htmlFor="fileInput" className="customFileInput">
+									<BsCloudUploadFill />
+									Ou selecione uma imagem <BsCloudUploadFill />
+								</label>
+							</>
+						)}
+					</div>
+				)}
+			</div>
+		</MyModal>
 	);
 }

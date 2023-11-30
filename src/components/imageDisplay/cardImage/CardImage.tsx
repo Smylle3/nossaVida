@@ -2,15 +2,15 @@ import { useState } from 'react';
 import { MdDelete, MdFullscreen, MdOutlineFileDownload } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 
-import { Image } from '../../types/imageType';
-import MyButton from '../myButton/MyButton';
-import useFirestore from '../../hooks/useFirestore';
-import ImageScreenModal from '../modal/ImageScreenModal';
+import { Image } from '../../../types/imageType';
+import MyButton from '../../defaultComponents/myButton/MyButton';
+import useFirestore from '../../../hooks/useFirestore';
+import ImageScreenModal from '../../defaultComponents/myModal/ImageScreenModal';
 
 import './CardImage.css';
 
 export default function CardImage({ image }: { image: Image; id: number }) {
-	const { deleteImage } = useFirestore('images');
+	const { deleteImage } = useFirestore();
 	const [openImage, setOpenImage] = useState<boolean>(false);
 	const timestamp = new Date(
 		image.uploadAt.seconds * 1000 + image.uploadAt.nanoseconds / 1e6,

@@ -4,12 +4,12 @@ import {
 	signInWithEmailAndPassword,
 } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
-import { toast, ToastContainer } from 'react-toastify';
+import { message } from 'antd';
 import { useEffect, useState } from 'react';
 
-import CustomInput from '../components/customInput/CustomInput';
+import CustomInput from '../components/defaultComponents/customInput/CustomInput';
 import './style.css';
-import MyButton from '../components/myButton/MyButton';
+import MyButton from '../components/defaultComponents/myButton/MyButton';
 import { auth } from '../firebase/config';
 import { useApp } from '../hooks/useApp';
 import { anaNicknames } from '../utils/Nicknames';
@@ -22,6 +22,7 @@ interface FormValue {
 export const Signup = () => {
 	const [randomNickname, setRandomNickname] = useState<number>(0);
 	const { isMobile } = useApp();
+	const [messageApi, contextHolder] = message.useMessage();
 	const navigate = useNavigate();
 	const { handleSubmit, control } = useForm<FormValue>({
 		defaultValues: {
@@ -30,8 +31,9 @@ export const Signup = () => {
 		},
 	});
 	const notify = () => {
-		toast.error('Erro ao fazer login 😢', {
-			position: toast.POSITION.TOP_CENTER,
+		messageApi.open({
+			type: 'error',
+			content: 'Erro ao fazer login 😢',
 		});
 	};
 
@@ -60,41 +62,44 @@ export const Signup = () => {
 
 	if (isMobile)
 		return (
-			<div className="loginMobileContainer">
-				<div className="recieveMobileContainer">
-					<h3 className="appTitle">❤️ NOSSA VIDA ❤️</h3>
-					<h2 className="recieveContainer">
-						OI {anaNicknames[randomNickname]}!!
-					</h2>
+			<>
+				{contextHolder}
+				<div className="loginMobileContainer">
+					<div className="recieveMobileContainer">
+						<h3 className="appTitle">❤️ NOSSA VIDA ❤️</h3>
+						<h2 className="recieveContainer">
+							OI {anaNicknames[randomNickname]}!!
+						</h2>
+					</div>
+					<form className="formLoginMobileContainer" onSubmit={onSubmit}>
+						<h1>LOGIN</h1>
+						<CustomInput<FormValue>
+							id="email-id"
+							control={control}
+							name="email"
+							type="email"
+							label="Email"
+							placeHolder="Digita o email aqui, ana bananinha..."
+						/>
+						<CustomInput<FormValue>
+							id="pass-id"
+							control={control}
+							name="password"
+							type="password"
+							label="Senha"
+							placeHolder="E a senha aqui, minha gatinha..."
+						/>
+						<MyButton type="free" formType="submit">
+							😍 ENTRAR NA NOSSA VIDA 😍
+						</MyButton>
+					</form>
 				</div>
-				<form className="formLoginMobileContainer" onSubmit={onSubmit}>
-					<h1>LOGIN</h1>
-					<CustomInput<FormValue>
-						id="email-id"
-						control={control}
-						name="email"
-						type="email"
-						label="Email"
-						placeHolder="Digita o email aqui, ana bananinha..."
-					/>
-					<CustomInput<FormValue>
-						id="pass-id"
-						control={control}
-						name="password"
-						type="password"
-						label="Senha"
-						placeHolder="E a senha aqui, minha gatinha..."
-					/>
-					<MyButton type="free" formType="submit">
-						😍 ENTRAR NA NOSSA VIDA 😍
-					</MyButton>
-				</form>
-				<ToastContainer />
-			</div>
+			</>
 		);
 	else
 		return (
 			<div className="loginContainer">
+				{contextHolder}
 				<div className="leftSideContainer">
 					<h3 className="appTitle">❤️ NOSSA VIDA ❤️</h3>
 					<h1 className="recieveContainer">
@@ -123,7 +128,6 @@ export const Signup = () => {
 						😍 ENTRAR NA NOSSA VIDA 😍
 					</MyButton>
 				</form>
-				<ToastContainer />
 			</div>
 		);
 };

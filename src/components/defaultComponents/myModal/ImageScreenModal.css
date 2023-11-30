@@ -1,0 +1,86 @@
+.modalWebContainer {
+	width: 50vw;
+	height: 80vh;
+	gap: 1em;
+	display: flex;
+	flex-direction: column;
+}
+
+.modalWebImage {
+	background-color: var(--light-purple);
+	box-sizing: border-box;
+
+	border: 2px dotted var(--purple);
+	border-radius: 8px;
+	height: 60%;
+	width: 100%;
+	padding: 1em;
+
+	display: flex;
+	justify-content: center;
+}
+
+.modalWebDescription {
+	flex-wrap: wrap;
+	display: flex;
+	flex-direction: column;
+	max-height: 40%;
+	gap: 1em;
+}
+
+.modalWebButton {
+	width: 100%;
+}
+
+/****************************************************/
+
+.mobileModalContainer {
+	width: 99vw;
+	max-height: 85vh;
+	gap: 1em;
+	display: flex;
+	flex-direction: column;
+}
+
+.modalMobileImage {
+	box-sizing: border-box;
+	
+	border: 2px dotted var(--purple);
+	border-radius: 8px;
+	max-height: 70%;
+	width: 100%;
+	padding: .5em;
+	
+	display: flex;
+	justify-content: center;
+}
+
+.mobileImage {
+	height: 100%;
+	max-height: 100%;
+}
+
+.modalMobileDescription {
+	display: flex;
+	flex-direction: column;
+	max-height: 30%;
+	gap: 1em;
+}
+
+.mobileCloseButton {
+	visibility: visible;
+	position: absolute;
+	right: 1em;
+	bottom: -20px;
+	height: 40px;
+	width: 40px;
+}
+
+.mobileDownloadButton {
+	visibility: visible;
+	position: absolute;
+	right: 4em;
+	bottom: -20px;
+	height: 40px;
+	width: 40px;
+}

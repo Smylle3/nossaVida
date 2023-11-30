@@ -1,13 +1,13 @@
 import { useApp } from '../../hooks/useApp';
 import useFirestore from '../../hooks/useFirestore';
-import CardImage from '../cardImage/CardImage';
-import MiniImage from '../miniImage/MiniImage';
-import PolaroidImage from '../polaroidImage/PolaroidImage';
+import CardImage from '../imageDisplay/cardImage/CardImage';
+import MiniImage from '../imageDisplay/miniImage/MiniImage';
+import PolaroidImage from '../imageDisplay/polaroidImage/PolaroidImage';
 import './ImageGallery.css';
 
 export default function ImageGallery() {
 	const { gridType, isMobile } = useApp();
-	const { docs: images } = useFirestore('images');
+	const { docs: images } = useFirestore();
 
 	if (gridType) {
 		return (
