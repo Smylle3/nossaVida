@@ -9,20 +9,27 @@ import { auth } from '../../../firebase/config';
 import MyPopover from '../myPopover/MyPopover';
 import AlbumTag from '../../albumTag/AlbumTag';
 import { Album } from '../../../types/albumsType';
+import useFirestore from '../../../hooks/useFirestore';
 
 interface MyDropDownProps {
 	children: React.ReactElement;
-	type: 'filter' | 'menu';
+	type: 'filter' | 'menu' | 'setFilter';
 	albums?: Album[];
 	iconPosition?: string;
+	title?: string;
+	clickFunction?: (album: Album, event: 'add' | 'delete') => void;
+	className?: string;
 }
 export default function MyDropDown({
 	children,
 	type,
 	albums,
 	iconPosition,
+	title,
+	clickFunction,
 }: MyDropDownProps) {
 	const { gridType, setGridType } = useApp();
+	const { deleteAlbum } = useFirestore();
 	const [messageApi] = message.useMessage();
 
 	const logout = async () => {
@@ -34,6 +41,14 @@ export default function MyDropDown({
 				content: 'Erro ao fazer logout 😢',
 			});
 		}
+	};
+
+	const handleDelete = async (AlbumTag: Album) => {
+		await deleteAlbum(AlbumTag);
+		messageApi.open({
+			type: 'success',
+			content: `Álbum deletado com sucesso!`,
+		});
 	};
 
 	if (type === 'menu')
@@ -70,11 +85,42 @@ export default function MyDropDown({
 		return (
 			<div className={`selectGrid ${iconPosition}`}>
 				<MyPopover
-					title="Filtro de álbuns"
+					title={title ? title : 'Filtro de álbuns'}
 					content={
 						<div className="albumContainer">
 							{albums.map((album) => (
-								<AlbumTag type="oldAlbum" album={album} key={album.id} />
+								<AlbumTag
+									closeIcon
+									type="oldAlbum"
+									album={album}
+									key={album.id}
+									onClose={() => handleDelete(album)}
+								/>
+							))}
+							<AlbumTag type="newAlbum" />
+						</div>
+					}
+				>
+					{children}
+				</MyPopover>
+			</div>
+		);
+	else if (type === 'setFilter' && albums && clickFunction)
+		return (
+			<div className={`selectGrid ${iconPosition}`}>
+				<MyPopover
+					title={title ? title : 'Filtro de álbuns'}
+					content={
+						<div className="albumContainer">
+							{albums.map((album) => (
+								<AlbumTag
+									closeIcon
+									type="oldAlbum"
+									album={album}
+									key={album.id}
+									onClick={() => clickFunction(album, 'add')}
+									onClose={() => handleDelete(album)}
+								/>
 							))}
 							<AlbumTag type="newAlbum" />
 						</div>

@@ -17,7 +17,7 @@ interface UploadFormProps {
 	setModalIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 export default function UploadForm({ modalIsOpen, setModalIsOpen }: UploadFormProps) {
-	const { albums } = useFirestore();
+	const { albums, deleteAlbum } = useFirestore();
 	const { user } = useAuth();
 	const { startUpload, loading } = useStorage();
 	const [subTitle, setSubTitle] = useState<string>('');
@@ -133,6 +133,7 @@ export default function UploadForm({ modalIsOpen, setModalIsOpen }: UploadFormPr
 								<div className="previewAlbums">
 									{albums.map((album) => (
 										<AlbumTag
+											closeIcon
 											type="oldAlbum"
 											album={album}
 											key={album.id}
@@ -142,6 +143,7 @@ export default function UploadForm({ modalIsOpen, setModalIsOpen }: UploadFormPr
 													: '#845ec2'
 											}`}
 											onClick={() => addAlbumToImage(album)}
+											onClose={() => deleteAlbum(album)}
 										/>
 									))}
 									<AlbumTag type="newAlbum" />

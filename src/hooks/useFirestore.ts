@@ -45,6 +45,7 @@ export default function useFirestore() {
 							imageUrl: doc.data()?.imageUrl,
 							lastModifiedDate: doc.data()?.lastModifiedDate,
 							subtitle: doc.data()?.subtitle,
+							album: doc.data()?.album,
 						};
 						images.push(imageFromDoc);
 					});
@@ -88,13 +89,23 @@ export default function useFirestore() {
 		await deleteObject(desertRef);
 	};
 
-	const updateImage = async (docName: string, newSubtitle: string) => {
-		const docRef = doc(db, collectionName.image, docName);
+	const updateImage = async (objectToUpdate: {
+		docName: string;
+		newSubtitle?: string;
+		newAlbum?: Album[];
+	}) => {
+		const docRef = doc(db, collectionName.image, objectToUpdate.docName);
 
 		try {
-			updateDoc(docRef, {
-				subtitle: newSubtitle,
-			});
+			const updateData: { subtitle?: string; album?: Album[] } = {};
+
+			if (objectToUpdate.newSubtitle) {
+				updateData.subtitle = objectToUpdate.newSubtitle;
+			}
+			if (objectToUpdate.newAlbum) {
+				updateData.album = objectToUpdate.newAlbum;
+			}
+			updateDoc(docRef, updateData);
 		} catch (error) {
 			console.log(error);
 			return 'falied';
@@ -107,19 +118,12 @@ export default function useFirestore() {
 	const createAlbum = async (newAlbum: string) => {
 		await addDoc(collection(db, 'albums'), {
 			name: newAlbum,
-		})
-			.then(() => {
-				messageApi.open({
-					type: 'success',
-					content: `${newAlbum} adicionado com sucesso! 🎉🎊🎇`,
-				});
-			})
-			.catch(() => {
-				messageApi.open({
-					type: 'error',
-					content: `Erro ao adicionar novo álbum 😢`,
-				});
+		}).catch(() => {
+			messageApi.open({
+				type: 'error',
+				content: `Erro ao adicionar novo álbum 😢`,
 			});
+		});
 	};
 
 	const deleteAlbum = async (albumInfos: Album) => {

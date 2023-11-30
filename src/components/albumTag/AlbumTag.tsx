@@ -12,9 +12,18 @@ interface AlbumTagProps {
 	album?: Album;
 	colorTag?: string;
 	onClick?: React.MouseEventHandler<HTMLInputElement>;
+	onClose?: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void;
+	closeIcon?: boolean;
 }
-export default function AlbumTag({ type, album, colorTag, onClick }: AlbumTagProps) {
-	const { createAlbum, deleteAlbum } = useFirestore();
+export default function AlbumTag({
+	type,
+	album,
+	colorTag,
+	onClick,
+	onClose,
+	closeIcon,
+}: AlbumTagProps) {
+	const { createAlbum } = useFirestore();
 	const [inputVisible, setInputVisible] = useState<boolean>(false);
 	const [inputValue, setInputValue] = useState<string>('');
 	const [messageApi, contextHolder] = message.useMessage();
@@ -38,14 +47,6 @@ export default function AlbumTag({ type, album, colorTag, onClick }: AlbumTagPro
 		messageApi.open({
 			type: 'success',
 			content: `${inputValue} adicionado com sucesso! 🎉🎊🎇`,
-		});
-	};
-
-	const handleDelete = async (AlbumTag: Album) => {
-		await deleteAlbum(AlbumTag);
-		messageApi.open({
-			type: 'success',
-			content: `Álbum deletado com sucesso!`,
 		});
 	};
 
@@ -103,14 +104,13 @@ export default function AlbumTag({ type, album, colorTag, onClick }: AlbumTagPro
 		return (
 			<Tag
 				icon={<MdOutlinePhotoAlbum />}
-				closeIcon
+				closeIcon={closeIcon}
 				className="oldAlbum"
-				onClose={() => handleDelete(album)}
+				onClose={onClose}
 				bordered={false}
 				color={colorTag ? colorTag : '#845ec2'}
 				onClick={onClick}
 			>
-				{contextHolder}
 				{album?.name}
 			</Tag>
 		);
