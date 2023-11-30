@@ -37,11 +37,17 @@ export default function Description({ text, title, isEdit, imageId }: Descriptio
 	const onSave = async (e: React.FormEvent<HTMLFormElement>) => {
 		if (!imageId) return;
 		e.preventDefault();
-		const res = await updateImage(imageId, value);
+		const res = await updateImage({ docName: imageId, newSubtitle: value });
 		if (res === 'sucess') {
 			setIsChanging(false);
 			setIsUploaded(true);
 		}
+	};
+
+	const resetInput = () => {
+		setIsChanging(false);
+		setIsUploaded(false);
+		setValue(text);
 	};
 
 	return (
@@ -50,7 +56,11 @@ export default function Description({ text, title, isEdit, imageId }: Descriptio
 				<span className="spanTitle">{title}</span>
 				{isEdit ? (
 					<form className="inputAndButton" onSubmit={(e) => onSave(e)}>
-						<SimpleInput onChange={handleChange} value={value} />
+						<SimpleInput
+							onChange={handleChange}
+							value={value}
+							onBlur={resetInput}
+						/>
 						{isChanging ? (
 							<MyButton type="edge" className="saveDesc" formType="submit">
 								<MdSave />

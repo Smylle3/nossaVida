@@ -5,12 +5,14 @@ interface SimpleInputProps {
 	value?: string;
 	className?: string;
 	placeHolder?: string;
+	onBlur?: React.FocusEventHandler<HTMLInputElement>;
 }
 export default function SimpleInput({
 	onChange,
 	value,
 	className,
 	placeHolder,
+	onBlur,
 }: SimpleInputProps) {
 	return (
 		<input
@@ -19,6 +21,7 @@ export default function SimpleInput({
 			className={`${className} customInput`}
 			type="text"
 			placeholder={placeHolder ? placeHolder : 'Descrição'}
+			onBlur={onBlur}
 		/>
 	);
 }
