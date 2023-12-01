@@ -107,7 +107,6 @@ export default function useFirestore() {
 			}
 			updateDoc(docRef, updateData);
 		} catch (error) {
-			console.log(error);
 			return 'falied';
 		}
 		return 'sucess';
@@ -124,6 +123,20 @@ export default function useFirestore() {
 				content: `Erro ao adicionar novo álbum 😢`,
 			});
 		});
+	};
+
+	const updateAlbum = async (objectToUpdate: { albumId: string; newName: string }) => {
+		const docRef = doc(db, collectionName.album, objectToUpdate.albumId);
+
+		try {
+			updateDoc(docRef, {
+				id: objectToUpdate.albumId,
+				name: objectToUpdate.newName,
+			});
+		} catch (error) {
+			return 'falied';
+		}
+		return 'sucess';
 	};
 
 	const deleteAlbum = async (albumInfos: Album) => {
@@ -143,6 +156,7 @@ export default function useFirestore() {
 		deleteImage,
 		updateImage,
 		createAlbum,
+		updateAlbum,
 		deleteAlbum,
 	};
 }

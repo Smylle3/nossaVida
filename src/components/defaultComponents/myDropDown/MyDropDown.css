@@ -20,7 +20,7 @@
 
 	display: flex;
 	gap: 0.25em;
-	
+
 	border-radius: 5px;
 }
 
@@ -31,4 +31,29 @@
 	justify-content: center;
 	box-sizing: border-box;
 	gap: 0.5em;
+}
+
+.albumConfig {
+	visibility: visible;
+	right: 0.5em;
+	top: 0.5em;
+}
+
+.modalAlbumConfigContainer {
+	display: flex;
+	flex-direction: column;
+	gap: 1em;
+	color: var(--purple);
+}
+
+.modalAlbumConfigSingleAlbum {
+	display: flex;
+	align-items: center;
+	box-sizing: border-box;
+	gap: 1em;
+}
+
+.modalAlbumConfigDeleteButton {
+	visibility: visible;
+	position: inherit;
 }

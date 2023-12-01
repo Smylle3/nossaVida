@@ -1,5 +1,6 @@
+import { useState } from 'react';
 import './MyDropDown.css';
-import { MdLogout } from 'react-icons/md';
+import { MdDelete, MdLogout, MdSettings } from 'react-icons/md';
 import { BsGrid3X3Gap, BsViewStacked } from 'react-icons/bs';
 import { signOut } from 'firebase/auth';
 import { message } from 'antd';
@@ -10,6 +11,9 @@ import MyPopover from '../myPopover/MyPopover';
 import AlbumTag from '../../albumTag/AlbumTag';
 import { Album } from '../../../types/albumsType';
 import useFirestore from '../../../hooks/useFirestore';
+import MyButton from '../myButton/MyButton';
+import MyModal from '../myModal/MyModal';
+import Description from '../../description/Description';
 
 interface MyDropDownProps {
 	children: React.ReactElement;
@@ -32,6 +36,7 @@ export default function MyDropDown({
 		useApp();
 	const { deleteAlbum } = useFirestore();
 	const [messageApi] = message.useMessage();
+	const [modalConfig, setModalConfig] = useState<boolean>(false);
 
 	const logout = async () => {
 		try {
@@ -118,11 +123,21 @@ export default function MyDropDown({
 								/>
 							))}
 							<AlbumTag type="newAlbum" />
+							<MyButton
+								type="edge"
+								className="albumConfig"
+								onClick={() => setModalConfig(true)}
+							>
+								<MdSettings />
+							</MyButton>
 						</div>
 					}
 				>
 					{children}
 				</MyPopover>
+				<MyModal openModal={modalConfig} setOpenModal={setModalConfig} footer>
+					<AlbumConfig />
+				</MyModal>
 			</div>
 		);
 	else if (type === 'setFilter' && albums && clickFunction)
@@ -151,3 +166,42 @@ export default function MyDropDown({
 			</div>
 		);
 }
+
+const AlbumConfig = () => {
+	const { albums, deleteAlbum } = useFirestore();
+
+	return (
+		<div className="modalAlbumConfigContainer">
+			<h3>Edição de álbuns</h3>
+			{albums.map((album) => (
+				<div className="modalAlbumConfigSingleAlbum" key={album.id}>
+					<Description
+						typeValue="album"
+						text={album.name}
+						title=""
+						isEdit
+						id={album.id}
+					/>
+					<MyButton
+						type="edge"
+						className="modalAlbumConfigDeleteButton"
+						formType="submit"
+						onClick={() => deleteAlbum(album)}
+					>
+						<MdDelete />
+					</MyButton>
+				</div>
+			))}
+			<div className="line" />
+			<h3>Adicionar novo álbum</h3>
+			<Description
+				typeValue="album"
+				text=""
+				title=""
+				placeHolder="Nome do álbum"
+				isEdit
+				id=""
+			/>
+		</div>
+	);
+};

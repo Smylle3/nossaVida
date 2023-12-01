@@ -78,6 +78,7 @@ export default function UploadForm({ modalIsOpen, setModalIsOpen }: UploadFormPr
 			openModal={modalIsOpen}
 			setOpenModal={setModalIsOpen}
 			afterClose={resetModal}
+			footer={false}
 		>
 			<div className="formContainer">
 				{loading >= 0 ? (

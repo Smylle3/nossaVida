@@ -1,12 +1,9 @@
 import React from 'react';
-import { MdClose, MdOutlineFileDownload } from 'react-icons/md';
-import { Link } from 'react-router-dom';
 import { Image as ImageAntd } from 'antd';
 import { BsFilter } from 'react-icons/bs';
 
 import MyModal from './MyModal';
 import Description from '../../description/Description';
-import MyButton from '../myButton/MyButton';
 import { Image } from '../../../types/imageType';
 import { useApp } from '../../../hooks/useApp';
 import './ImageScreenModal.css';
@@ -34,26 +31,7 @@ export default function ImageScreenModal({
 
 	if (isMobile)
 		return (
-			<MyModal
-				openModal={openImage}
-				setOpenModal={setOpenImage}
-				footer={
-					<div>
-						<MyButton
-							type="edge"
-							className="mobileCloseButton"
-							onClick={() => setOpenImage(false)}
-						>
-							<MdClose size={25} />
-						</MyButton>
-						<Link to={image.imageUrl} download target="_blank">
-							<MyButton type="edge" className="mobileDownloadButton">
-								<MdOutlineFileDownload size={25} />
-							</MyButton>
-						</Link>
-					</div>
-				}
-			>
+			<MyModal openModal={openImage} setOpenModal={setOpenImage} footer>
 				<div className="mobileModalContainer">
 					<div className="modalMobileImage">
 						<ImageAntd src={image.imageUrl} className="mobileImage" />
@@ -64,11 +42,13 @@ export default function ImageScreenModal({
 							text={image.subtitle}
 							title="Descrição"
 							isEdit
-							imageId={image.id}
+							id={image.id}
+							typeValue="description"
 						/>
 						<Description
 							text={timestamp.toLocaleString()}
 							title="Data de upload"
+							typeValue="description"
 						/>
 					</div>
 				</div>
@@ -76,21 +56,7 @@ export default function ImageScreenModal({
 		);
 	else
 		return (
-			<MyModal
-				openModal={openImage}
-				setOpenModal={setOpenImage}
-				footer={
-					<div className="modalWebButton">
-						<MyButton
-							className="modalWebButton"
-							type="free"
-							onClick={() => setOpenImage(false)}
-						>
-							❌ Fechar ❌
-						</MyButton>
-					</div>
-				}
-			>
+			<MyModal openModal={openImage} setOpenModal={setOpenImage} footer>
 				<div className="modalWebContainer">
 					<div className="modalWebImage">
 						<ImageAntd src={image.imageUrl} height="100%" />
@@ -101,15 +67,18 @@ export default function ImageScreenModal({
 							text={image.subtitle}
 							title="Descrição:"
 							isEdit
-							imageId={image.id}
+							id={image.id}
+							typeValue="description"
 						/>
 						<Description
 							text={lastModified.toLocaleString()}
 							title="Data da ultima alteração:"
+							typeValue="description"
 						/>
 						<Description
 							text={timestamp.toLocaleString()}
 							title="Data de upload:"
+							typeValue="description"
 						/>
 					</div>
 				</div>

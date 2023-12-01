@@ -10,11 +10,20 @@ interface DescriptionProps {
 	text: string;
 	title: string;
 	isEdit?: boolean;
-	imageId?: string;
+	id?: string;
+	typeValue: 'album' | 'description';
+	placeHolder?: string;
 }
 
-export default function Description({ text, title, isEdit, imageId }: DescriptionProps) {
-	const { updateImage } = useFirestore();
+export default function Description({
+	text,
+	title,
+	isEdit,
+	id,
+	typeValue,
+	placeHolder,
+}: DescriptionProps) {
+	const { updateImage, updateAlbum, createAlbum } = useFirestore();
 	const [value, setValue] = useState<string>(text);
 	const [isChanging, setIsChanging] = useState<boolean>(false);
 	const [isUploaded, setIsUploaded] = useState<boolean>(false);
@@ -35,10 +44,21 @@ export default function Description({ text, title, isEdit, imageId }: Descriptio
 	};
 
 	const onSave = async (e: React.FormEvent<HTMLFormElement>) => {
-		if (!imageId) return;
 		e.preventDefault();
-		const res = await updateImage({ docName: imageId, newSubtitle: value });
-		if (res === 'sucess') {
+
+		try {
+			if (typeValue === 'description' && id)
+				await updateImage({ docName: id, newSubtitle: value });
+			if (typeValue === 'album' && id) {
+				await updateAlbum({ albumId: id, newName: value });
+			}
+			if (typeValue === 'album' && !id) {
+				await createAlbum(value);
+				setValue(text);
+			}
+		} catch (error) {
+			console.log(error);
+		} finally {
 			setIsChanging(false);
 			setIsUploaded(true);
 		}
@@ -50,7 +70,11 @@ export default function Description({ text, title, isEdit, imageId }: Descriptio
 				<span className="spanTitle">{title}</span>
 				{isEdit ? (
 					<form className="inputAndButton" onSubmit={(e) => onSave(e)}>
-						<SimpleInput onChange={handleChange} value={value} />
+						<SimpleInput
+							placeHolder={placeHolder}
+							onChange={handleChange}
+							value={value}
+						/>
 						{isChanging ? (
 							<MyButton type="edge" className="saveDesc" formType="submit">
 								<MdSave />
@@ -66,7 +90,7 @@ export default function Description({ text, title, isEdit, imageId }: Descriptio
 						)}
 					</form>
 				) : (
-					<span> {text}</span>
+					<span>{text}</span>
 				)}
 			</div>
 		</div>

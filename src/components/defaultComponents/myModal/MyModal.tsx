@@ -1,6 +1,8 @@
 import { ReactElement } from 'react';
 import { Modal } from 'antd';
+
 import './MyModal.css';
+import MyButton from '../myButton/MyButton';
 
 interface MyModalProps {
 	children: ReactElement;
@@ -8,7 +10,7 @@ interface MyModalProps {
 	setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
 	className?: string;
 	title?: string;
-	footer?: React.ReactNode;
+	footer?: boolean;
 	afterClose?: () => void;
 }
 
@@ -31,6 +33,14 @@ export default function MyModal({
 		},
 	};
 
+	const footerComponent = (
+		<div className="modalWebButton">
+			<MyButton className="modalWebButton" type="free" onClick={closeModal}>
+				❌ Fechar ❌
+			</MyButton>
+		</div>
+	);
+
 	return (
 		<Modal
 			centered
@@ -39,11 +49,11 @@ export default function MyModal({
 			onOk={closeModal}
 			onCancel={closeModal}
 			className={className}
-			footer={footer ? footer : null}
 			width="fit-content"
 			closeIcon={null}
 			styles={stylesModal}
 			afterClose={afterClose}
+			footer={footer && footerComponent}
 		>
 			{children}
 		</Modal>
