@@ -9,6 +9,6 @@ export type Image = {
 	imageUrl: string;
 	subtitle: string;
 	lastModifiedDate: number;
-	album?: Album[];
+	album: Album[];
 	uploadAt: Timestamp;
 };

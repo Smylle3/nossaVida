@@ -8,7 +8,7 @@ import useFirestore from '../../hooks/useFirestore';
 import { Album } from '../../types/albumsType';
 
 interface AlbumTagProps {
-	type: 'newAlbum' | 'oldAlbum';
+	type: 'newAlbum' | 'oldAlbum' | 'allAlbums';
 	album?: Album;
 	colorTag?: string;
 	onClick?: React.MouseEventHandler<HTMLInputElement>;
@@ -100,7 +100,7 @@ export default function AlbumTag({
 				)}
 			</>
 		);
-	else if (album)
+	else if (type === 'oldAlbum' && album)
 		return (
 			<Tag
 				icon={<MdOutlinePhotoAlbum />}
@@ -112,6 +112,17 @@ export default function AlbumTag({
 				onClick={onClick}
 			>
 				{album?.name}
+			</Tag>
+		);
+	else if (type === 'allAlbums')
+		return (
+			<Tag
+				icon={<MdOutlinePhotoAlbum />}
+				className="oldAlbum"
+				color="#845ec2"
+				bordered={false}
+			>
+				Todos os álbuns
 			</Tag>
 		);
 }

@@ -2,6 +2,7 @@
 	background-color: var(--light-purple);
 	border-color: var(--purple);
 	color: var(--purple);
+	margin: 0;
 }
 
 .oldAlbum {
@@ -9,6 +10,7 @@
 	align-items: center;
 	gap: .3em;
 	cursor: pointer;
+	margin: 0;
 }
 
 .closeButtonTag {

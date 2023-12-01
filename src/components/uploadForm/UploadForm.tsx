@@ -138,9 +138,11 @@ export default function UploadForm({ modalIsOpen, setModalIsOpen }: UploadFormPr
 											album={album}
 											key={album.id}
 											colorTag={`${
-												albumSelected.includes(album)
-													? 'success'
-													: '#845ec2'
+												albumSelected.find(
+													(item) => item.id === album.id,
+												)
+													? '#845ec2'
+													: 'purple'
 											}`}
 											onClick={() => addAlbumToImage(album)}
 											onClose={() => deleteAlbum(album)}

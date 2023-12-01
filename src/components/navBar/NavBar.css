@@ -111,3 +111,14 @@
 	color: var(--background-color);
 	cursor: pointer;
 }
+
+.filterSelected {
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+	position: absolute;
+	width: 100%;
+	top: 100%;
+	gap: .25em;
+	margin-top: .5em;
+}

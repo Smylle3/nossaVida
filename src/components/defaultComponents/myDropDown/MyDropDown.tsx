@@ -28,7 +28,8 @@ export default function MyDropDown({
 	title,
 	clickFunction,
 }: MyDropDownProps) {
-	const { gridType, setGridType } = useApp();
+	const { gridType, setGridType, filterAlbumsSelected, setFilterAlbumsSelected } =
+		useApp();
 	const { deleteAlbum } = useFirestore();
 	const [messageApi] = message.useMessage();
 
@@ -49,6 +50,17 @@ export default function MyDropDown({
 			type: 'success',
 			content: `Álbum deletado com sucesso!`,
 		});
+	};
+
+	const setAlbumFilter = (album: Album) => {
+		const hasBeenSelected = filterAlbumsSelected.find((item) => item.id === album.id);
+		if (hasBeenSelected) {
+			setFilterAlbumsSelected(
+				filterAlbumsSelected.filter((item) => item.id !== album.id),
+			);
+		} else {
+			setFilterAlbumsSelected((prev) => [...prev, album]);
+		}
 	};
 
 	if (type === 'menu')
@@ -95,6 +107,14 @@ export default function MyDropDown({
 									album={album}
 									key={album.id}
 									onClose={() => handleDelete(album)}
+									onClick={() => setAlbumFilter(album)}
+									colorTag={`${
+										filterAlbumsSelected.find(
+											(item) => item.id === album.id,
+										)
+											? '#845ec2'
+											: 'purple'
+									}`}
 								/>
 							))}
 							<AlbumTag type="newAlbum" />

@@ -12,9 +12,10 @@ import UploadForm from '../uploadForm/UploadForm';
 import MyDropDown from '../defaultComponents/myDropDown/MyDropDown';
 import MyButton from '../defaultComponents/myButton/MyButton';
 import useFirestore from '../../hooks/useFirestore';
+import AlbumTag from '../albumTag/AlbumTag';
 
 export default function NavBar() {
-	const { gridType, setGridType, isMobile } = useApp();
+	const { gridType, setGridType, isMobile, filterAlbumsSelected } = useApp();
 	const { albums } = useFirestore();
 	const [messageApi, contextHolder] = message.useMessage();
 	const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
@@ -50,6 +51,19 @@ export default function NavBar() {
 						>
 							<BsFilter size={30} />
 						</MyDropDown>
+						<div className="filterSelected">
+							{filterAlbumsSelected.length === albums.length ? (
+								<AlbumTag type="allAlbums" />
+							) : (
+								filterAlbumsSelected.map((filterSelected, index) => (
+									<AlbumTag
+										type="oldAlbum"
+										album={filterSelected}
+										key={index}
+									/>
+								))
+							)}
+						</div>
 						<button className="logoutButton" onClick={openModal}>
 							<MdAddToPhotos size={20} />
 						</button>
@@ -85,6 +99,19 @@ export default function NavBar() {
 						<button className="logoutButton" onClick={logout}>
 							<IoLogOut size={20} />
 						</button>
+						<div className="filterSelected">
+							{filterAlbumsSelected.length === albums.length ? (
+								<AlbumTag type="allAlbums" />
+							) : (
+								filterAlbumsSelected.map((filterSelected, index) => (
+									<AlbumTag
+										type="oldAlbum"
+										album={filterSelected}
+										key={index}
+									/>
+								))
+							)}
+						</div>
 					</>
 				)}
 				<UploadForm modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} />
