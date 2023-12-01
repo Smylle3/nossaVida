@@ -44,23 +44,13 @@ export default function Description({ text, title, isEdit, imageId }: Descriptio
 		}
 	};
 
-	const resetInput = () => {
-		setIsChanging(false);
-		setIsUploaded(false);
-		setValue(text);
-	};
-
 	return (
 		<div className="zoomSubTitle">
 			<div className="descTitle">
 				<span className="spanTitle">{title}</span>
 				{isEdit ? (
 					<form className="inputAndButton" onSubmit={(e) => onSave(e)}>
-						<SimpleInput
-							onChange={handleChange}
-							value={value}
-							onBlur={resetInput}
-						/>
+						<SimpleInput onChange={handleChange} value={value} />
 						{isChanging ? (
 							<MyButton type="edge" className="saveDesc" formType="submit">
 								<MdSave />
