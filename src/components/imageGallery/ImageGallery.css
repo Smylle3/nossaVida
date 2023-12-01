@@ -4,7 +4,7 @@
     position: relative;
     justify-items: center;
     gap: 2em;
-    padding: 6em 4em 4em 4em;
+    padding: 4em 4em 4em 4em;
     box-sizing: border-box;
     min-height: 75vh;
 }
@@ -15,16 +15,20 @@
     position: relative;
     box-sizing: border-box;
     gap: 2em;
-    padding: 6em 4em 4em 4em;
+    padding: 4em 4em 4em 4em;
     min-height: 75vh;
 }
 
 .miniContainer {
-    display: grid;
+    box-sizing: border-box;
+	padding: 3em 0.5em;
+    min-height: 75vh;
+}
+
+.miniGridContainer {
+	display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 0.3em;
-    position: relative;
-    box-sizing: border-box;
-    padding: 3em 0.5em;
-    min-height: 75vh;
+	width: 100%;
+	position: relative;
 }

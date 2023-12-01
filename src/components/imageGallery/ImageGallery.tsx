@@ -28,9 +28,11 @@ export default function ImageGallery() {
 	} else {
 		return (
 			<div className="miniContainer">
-				{images.map((image) => (
-					<MiniImage image={image} key={image.id} />
-				))}
+				<div className="miniGridContainer">
+					{images.map((image) => (
+						<MiniImage image={image} key={image.id} />
+					))}
+				</div>
 			</div>
 		);
 	}
