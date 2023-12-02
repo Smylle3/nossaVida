@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { BsCloudUploadFill, BsFileImage } from 'react-icons/bs';
 import { MdDelete } from 'react-icons/md';
-import { Progress, Image } from 'antd';
+import { Progress, Image, message } from 'antd';
 
 import useStorage from '../../hooks/useStorage';
 import MyButton from '../defaultComponents/myButton/MyButton';
@@ -17,6 +17,7 @@ interface UploadFormProps {
 	setModalIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 export default function UploadForm({ modalIsOpen, setModalIsOpen }: UploadFormProps) {
+	const [messageApi, contextHolder] = message.useMessage();
 	const { albums, deleteAlbum } = useFirestore();
 	const { user } = useAuth();
 	const { startUpload, loading } = useStorage();
@@ -48,6 +49,13 @@ export default function UploadForm({ modalIsOpen, setModalIsOpen }: UploadFormPr
 	};
 
 	const handleSubmit = () => {
+		if (albumSelected.length <= 0) {
+			messageApi.open({
+				type: 'error',
+				content: `Adicione pelo menos um álbum à imagem! 🤓`,
+			});
+			return;
+		}
 		if (selectedFile) {
 			startUpload(selectedFile, subTitle, albumSelected, setModalIsOpen);
 		}
@@ -81,6 +89,7 @@ export default function UploadForm({ modalIsOpen, setModalIsOpen }: UploadFormPr
 			footer={false}
 		>
 			<div className="formContainer">
+				{contextHolder}
 				{loading >= 0 ? (
 					<div className="progress">
 						<Progress
