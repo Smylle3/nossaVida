@@ -9,7 +9,7 @@ import './UploadForm.css';
 import { useAuth } from '../../hooks/useAuth';
 import useFirestore from '../../hooks/useFirestore';
 import AlbumTag from '../albumTag/AlbumTag';
-import { Album } from '../../types/albumsType';
+import { ImageAlbum } from '../../types/albumsType';
 import MyModal from '../defaultComponents/myModal/MyModal';
 
 interface UploadFormProps {
@@ -18,13 +18,13 @@ interface UploadFormProps {
 }
 export default function UploadForm({ modalIsOpen, setModalIsOpen }: UploadFormProps) {
 	const [messageApi, contextHolder] = message.useMessage();
-	const { albums, deleteAlbum } = useFirestore();
+	const { albums } = useFirestore();
 	const { user } = useAuth();
 	const { startUpload, loading } = useStorage();
 	const [subTitle, setSubTitle] = useState<string>('');
 	const [selectedFile, setSelectedFile] = useState<File | null>(null);
 	const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-	const [albumSelected, setAlbumSelected] = useState<Album[]>([]);
+	const [albumSelected, setAlbumSelected] = useState<ImageAlbum[]>([]);
 
 	const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		handleFile(e.target.files);
@@ -69,15 +69,15 @@ export default function UploadForm({ modalIsOpen, setModalIsOpen }: UploadFormPr
 		setSubTitle('');
 	};
 
-	const removeSelectedAlbum = (album: Album) => {
-		return albumSelected.filter((item) => item.id !== album.id);
+	const removeSelectedAlbum = (albumId: ImageAlbum) => {
+		return albumSelected.filter((item) => item.id !== albumId.id);
 	};
 
-	const addAlbumToImage = (album: Album) => {
-		const hasBeenSelected = albumSelected.find((item) => item.id === album.id);
-		if (!hasBeenSelected) setAlbumSelected((e) => [...(e || []), album]);
+	const addAlbumToImage = (albumId: ImageAlbum) => {
+		const hasBeenSelected = albumSelected.find((item) => item.id === albumId.id);
+		if (!hasBeenSelected) setAlbumSelected((e) => [...(e || []), { id: albumId.id }]);
 		else {
-			setAlbumSelected(removeSelectedAlbum(album));
+			setAlbumSelected(removeSelectedAlbum(albumId));
 		}
 	};
 
@@ -143,7 +143,6 @@ export default function UploadForm({ modalIsOpen, setModalIsOpen }: UploadFormPr
 								<div className="previewAlbums">
 									{albums.map((album) => (
 										<AlbumTag
-											closeIcon
 											type="oldAlbum"
 											album={album}
 											key={album.id}
@@ -155,7 +154,6 @@ export default function UploadForm({ modalIsOpen, setModalIsOpen }: UploadFormPr
 													: 'purple'
 											}`}
 											onClick={() => addAlbumToImage(album)}
-											onClose={() => deleteAlbum(album)}
 										/>
 									))}
 									<AlbumTag type="newAlbum" />

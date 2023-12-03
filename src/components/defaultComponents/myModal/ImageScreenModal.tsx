@@ -8,7 +8,7 @@ import { Image } from '../../../types/imageType';
 import { useApp } from '../../../hooks/useApp';
 import './ImageScreenModal.css';
 import AlbumTag from '../../albumTag/AlbumTag';
-import { Album } from '../../../types/albumsType';
+import { ImageAlbum } from '../../../types/albumsType';
 import useFirestore from '../../../hooks/useFirestore';
 import MyDropDown from '../myDropDown/MyDropDown';
 
@@ -92,7 +92,7 @@ interface tagOnModalImageProps {
 function TagOnModalImage({ image }: tagOnModalImageProps) {
 	const { updateImage, albums } = useFirestore();
 
-	const updateAlbumOnImage = (albumToUpdate: Album, event: 'add' | 'delete') => {
+	const updateAlbumOnImage = (albumToUpdate: ImageAlbum, event: 'add' | 'delete') => {
 		const currentImage: Image | undefined = { ...image };
 
 		if (event === 'delete') {
@@ -114,7 +114,7 @@ function TagOnModalImage({ image }: tagOnModalImageProps) {
 					key={item.id}
 					closeIcon
 					type="oldAlbum"
-					album={item}
+					album={albums.find((album) => album.id === item.id)}
 					onClose={() => updateAlbumOnImage(item, 'delete')}
 				/>
 			))}

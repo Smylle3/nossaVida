@@ -107,7 +107,6 @@ export default function MyDropDown({
 						<div className="albumContainer">
 							{albums.map((album) => (
 								<AlbumTag
-									closeIcon
 									type="oldAlbum"
 									album={album}
 									key={album.id}
@@ -149,7 +148,6 @@ export default function MyDropDown({
 						<div className="albumContainer">
 							{albums.map((album) => (
 								<AlbumTag
-									closeIcon
 									type="oldAlbum"
 									album={album}
 									key={album.id}

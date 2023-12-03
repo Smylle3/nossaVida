@@ -15,7 +15,7 @@ import { message } from 'antd';
 import { db, storage } from '../firebase/config';
 import { Image } from '../types/imageType';
 import { useAuth } from './useAuth';
-import { Album } from '../types/albumsType';
+import { Album, ImageAlbum } from '../types/albumsType';
 import { collectionName } from './../types/collectionNames';
 
 export default function useFirestore() {
@@ -92,12 +92,12 @@ export default function useFirestore() {
 	const updateImage = async (objectToUpdate: {
 		docName: string;
 		newSubtitle?: string;
-		newAlbum?: Album[];
+		newAlbum?: ImageAlbum[];
 	}) => {
 		const docRef = doc(db, collectionName.image, objectToUpdate.docName);
 
 		try {
-			const updateData: { subtitle?: string; album?: Album[] } = {};
+			const updateData: { subtitle?: string; album?: ImageAlbum[] } = {};
 
 			if (objectToUpdate.newSubtitle) {
 				updateData.subtitle = objectToUpdate.newSubtitle;

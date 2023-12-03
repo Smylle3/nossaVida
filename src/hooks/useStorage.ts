@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { addDoc, collection } from 'firebase/firestore';
 
 import { db, storage } from '../firebase/config';
-import { Album } from '../types/albumsType';
+import { ImageAlbum } from '../types/albumsType';
 
 export default function useStorage() {
 	const [error, setError] = useState<Error | null>(null);
@@ -14,7 +14,7 @@ export default function useStorage() {
 	const startUpload = async (
 		file: File,
 		subtitle: string,
-		albunsSelected: Album[],
+		albunsSelected: ImageAlbum[],
 		setOpenModal: React.Dispatch<React.SetStateAction<boolean>>,
 	) => {
 		if (!file) return;
