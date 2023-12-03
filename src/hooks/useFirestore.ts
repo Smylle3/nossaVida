@@ -141,12 +141,19 @@ export default function useFirestore() {
 
 	const deleteAlbum = async (albumInfos: Album) => {
 		if (!albumInfos) return;
-		await deleteDoc(doc(db, 'albums', albumInfos?.id)).then(() => {
-			messageApi.open({
-				type: 'success',
-				content: `Álbum deletado com sucesso!`,
+
+		const imagesWithAlbum = docs.filter(
+			(image) => image.album?.some((album) => album.id === albumInfos.id),
+		);
+
+		imagesWithAlbum.forEach(async (image) => {
+			const newAlbumArray = image.album.filter((album) => {
+				return album.id !== albumInfos.id;
 			});
+			await updateImage({ docName: image.id, newAlbum: newAlbumArray });
 		});
+
+		await deleteDoc(doc(db, 'albums', albumInfos?.id));
 	};
 
 	return {
