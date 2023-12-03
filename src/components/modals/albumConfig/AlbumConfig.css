@@ -1,0 +1,18 @@
+.modalAlbumConfigContainer {
+	display: flex;
+	flex-direction: column;
+	gap: 1em;
+	color: var(--purple);
+}
+
+.modalAlbumConfigSingleAlbum {
+	display: flex;
+	align-items: center;
+	box-sizing: border-box;
+	gap: 1em;
+}
+
+.modalAlbumConfigDeleteButton {
+	visibility: visible;
+	position: inherit;
+}

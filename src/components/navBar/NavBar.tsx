@@ -8,7 +8,7 @@ import { message } from 'antd';
 import './NavBar.css';
 import { auth } from '../../firebase/config';
 import { useApp } from '../../hooks/useApp';
-import UploadForm from '../uploadForm/UploadForm';
+import UploadForm from '../modals/uploadForm/UploadForm';
 import MyDropDown from '../defaultComponents/myDropDown/MyDropDown';
 import MyButton from '../defaultComponents/myButton/MyButton';
 import useFirestore from '../../hooks/useFirestore';

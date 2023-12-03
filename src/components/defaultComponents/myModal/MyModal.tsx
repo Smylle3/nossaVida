@@ -1,18 +1,8 @@
-import { ReactElement } from 'react';
 import { Modal } from 'antd';
 
 import './MyModal.css';
 import MyButton from '../myButton/MyButton';
-
-interface MyModalProps {
-	children: ReactElement;
-	openModal: boolean;
-	setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
-	className?: string;
-	title?: string;
-	footer?: boolean;
-	afterClose?: () => void;
-}
+import { MyModalProps } from './myModal.inteface';
 
 export default function MyModal({
 	children,
@@ -22,6 +12,11 @@ export default function MyModal({
 	title,
 	footer,
 	afterClose,
+	okText,
+	cancelText,
+	okFunction,
+	cancelFunction,
+	okType,
 }: MyModalProps) {
 	const closeModal = () => {
 		setOpenModal(false);
@@ -34,7 +29,7 @@ export default function MyModal({
 	};
 
 	const footerComponent = (
-		<div className="modalWebButton">
+		<div className="modalFooterContainer">
 			<MyButton className="modalWebButton" type="free" onClick={closeModal}>
 				❌ Fechar ❌
 			</MyButton>
@@ -46,14 +41,17 @@ export default function MyModal({
 			centered
 			title={title}
 			open={openModal}
-			onOk={closeModal}
-			onCancel={closeModal}
 			className={className}
 			width="fit-content"
 			closeIcon={null}
 			styles={stylesModal}
 			afterClose={afterClose}
 			footer={footer && footerComponent}
+			okText={okText}
+			cancelText={cancelText}
+			onOk={okFunction ? okFunction : () => setOpenModal(false)}
+			okType={okType}
+			onCancel={cancelFunction ? cancelFunction : () => setOpenModal(false)}
 		>
 			{children}
 		</Modal>

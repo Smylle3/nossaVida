@@ -3,14 +3,14 @@ import { BsCloudUploadFill, BsFileImage } from 'react-icons/bs';
 import { MdDelete } from 'react-icons/md';
 import { Progress, Image, message } from 'antd';
 
-import useStorage from '../../hooks/useStorage';
-import MyButton from '../defaultComponents/myButton/MyButton';
+import useStorage from '../../../hooks/useStorage';
+import MyButton from '../../defaultComponents/myButton/MyButton';
 import './UploadForm.css';
-import { useAuth } from '../../hooks/useAuth';
-import useFirestore from '../../hooks/useFirestore';
-import AlbumTag from '../albumTag/AlbumTag';
-import { ImageAlbum } from '../../types/albumsType';
-import MyModal from '../defaultComponents/myModal/MyModal';
+import { useAuth } from '../../../hooks/useAuth';
+import useFirestore from '../../../hooks/useFirestore';
+import AlbumTag from '../../albumTag/AlbumTag';
+import { ImageAlbum } from '../../../types/albumsType';
+import MyModal from '../../defaultComponents/myModal/MyModal';
 
 interface UploadFormProps {
 	modalIsOpen: boolean;

@@ -28,10 +28,6 @@
 	gap: 1em;
 }
 
-.modalWebButton {
-	width: 100%;
-}
-
 .modalWebTag {
 	display: flex;
 	justify-content: center;
@@ -100,4 +96,8 @@
 	bottom: -20px;
 	height: 40px;
 	width: 40px;
+}
+
+.deleteButton {
+	visibility: visible;
 }

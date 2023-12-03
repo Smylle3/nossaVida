@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { Image } from '../../../types/imageType';
 import MyButton from '../../defaultComponents/myButton/MyButton';
 import useFirestore from '../../../hooks/useFirestore';
-import ImageScreenModal from '../../defaultComponents/myModal/ImageScreenModal';
+import ImageScreenModal from '../../modals/imageScreen/ImageScreenModal';
 
 import './CardImage.css';
 

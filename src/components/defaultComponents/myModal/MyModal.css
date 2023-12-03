@@ -16,3 +16,13 @@
 .myModal {
     outline: 0 none;
 }
+
+.modalFooterContainer {
+	display: flex;
+	width: 100%;
+	gap: 1em;
+}
+
+.modalWebButton {
+	width: 100%;
+}

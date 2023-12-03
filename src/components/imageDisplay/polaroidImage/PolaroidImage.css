@@ -32,23 +32,3 @@
     color: var(--purple);
 	text-align: center;
 }
-
-.polaroid:hover .deleteButton {
-    visibility: visible;
-}
-
-.zoomButton {
-    cursor: zoom-in;
-}
-
-.polaroid:hover .zoomButton {
-    visibility: visible;
-}
-
-.polaroid:hover .downloadButton {
-	visibility: visible;
-}
-
-.downloadButton {
-	cursor: pointer;
-}
