@@ -25,7 +25,7 @@ export const AppProvider: FC<AppProviderProps> = ({ children }) => {
 	const { albums } = useFirestore();
 	const [gridType, setGridType] = useState<boolean>(true);
 	const [isMobile, setIsMobile] = useState<boolean>(window.innerWidth <= 768);
-	const [filterAlbumsSelected, setFilterAlbumsSelected] = useState<Album[]>(albums);
+	const [filterAlbumsSelected, setFilterAlbumsSelected] = useState<Album[]>([]);
 
 	const handleResize = () => {
 		setIsMobile(window.innerWidth <= 768);

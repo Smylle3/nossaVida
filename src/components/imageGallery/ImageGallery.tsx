@@ -14,10 +14,7 @@ export default function ImageGallery() {
 	const [newImageArray, setNewImageArray] = useState<Image[]>(images);
 
 	useEffect(() => {
-		if (
-			filterAlbumsSelected.length !== 0 ||
-			filterAlbumsSelected.length !== albums.length
-		) {
+		if (filterAlbumsSelected.length !== albums.length) {
 			const filteredImage = images.filter((image) => {
 				return image.album.some((album) =>
 					filterAlbumsSelected.some(
@@ -26,6 +23,8 @@ export default function ImageGallery() {
 				);
 			});
 			setNewImageArray(filteredImage);
+		} else if (filterAlbumsSelected.length === albums.length) {
+			setNewImageArray(images);
 		}
 	}, [albums, filterAlbumsSelected, images]);
 
