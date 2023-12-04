@@ -1,7 +1,3 @@
-.box {
-    z-index: 1;
-}
-
 .polaroid {
     background-color: var(--light-purple);
     box-sizing: border-box;
@@ -31,4 +27,8 @@
     background-color: var(--light-purple);
     color: var(--purple);
 	text-align: center;
+}
+
+.imageButton {
+	visibility: visible;
 }

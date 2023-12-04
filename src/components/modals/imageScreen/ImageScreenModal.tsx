@@ -15,6 +15,7 @@ import MyDropDown from '../../defaultComponents/myDropDown/MyDropDown';
 import MyButton from '../../defaultComponents/myButton/MyButton';
 import DeleteImageModal from '../confirmModal/ConfirmModal';
 import { useAuth } from '../../../hooks/useAuth';
+import PopoverReaction from '../../popoverReaction/PopoverReaction';
 
 interface ImageScreenModalProps {
 	openImage: boolean;
@@ -45,6 +46,7 @@ export default function ImageScreenModal({
 						</div>
 						<div className="modalMobileDescription">
 							<TagOnModalImage image={image} />
+							<PopoverReaction image={image} />
 							<Description
 								text={image.subtitle}
 								title="Descrição: "

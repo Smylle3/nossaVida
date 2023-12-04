@@ -46,6 +46,7 @@ export default function useFirestore() {
 							lastModifiedDate: doc.data()?.lastModifiedDate,
 							subtitle: doc.data()?.subtitle,
 							album: doc.data()?.album,
+							reactions: doc.data()?.reactions,
 						};
 						images.push(imageFromDoc);
 					});
@@ -93,11 +94,16 @@ export default function useFirestore() {
 		docName: string;
 		newSubtitle?: string;
 		newAlbum?: ImageAlbum[];
+		reactions?: { [x: string]: string | null };
 	}) => {
 		const docRef = doc(db, collectionName.image, objectToUpdate.docName);
 
 		try {
-			const updateData: { subtitle?: string; album?: ImageAlbum[] } = {};
+			const updateData: {
+				subtitle?: string;
+				album?: ImageAlbum[];
+				reactions?: { [x: string]: string | null };
+			} = {};
 
 			if (objectToUpdate.newSubtitle) {
 				updateData.subtitle = objectToUpdate.newSubtitle;
@@ -105,6 +111,10 @@ export default function useFirestore() {
 			if (objectToUpdate.newAlbum) {
 				updateData.album = objectToUpdate.newAlbum;
 			}
+			if (objectToUpdate.reactions) {
+				updateData.reactions = objectToUpdate.reactions;
+			}
+			console.log(updateData);
 			updateDoc(docRef, updateData);
 		} catch (error) {
 			return 'falied';
