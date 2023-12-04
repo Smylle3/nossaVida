@@ -12,4 +12,5 @@ export type Image = {
 	album: ImageAlbum[];
 	uploadAt: Timestamp;
 	reactions: { [x: string]: string | null };
+	uploadBy: string;
 };

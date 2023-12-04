@@ -47,6 +47,7 @@ export default function useFirestore() {
 							subtitle: doc.data()?.subtitle,
 							album: doc.data()?.album,
 							reactions: doc.data()?.reactions,
+							uploadBy: doc.data()?.uploadBy,
 						};
 						images.push(imageFromDoc);
 					});
@@ -104,7 +105,6 @@ export default function useFirestore() {
 				album?: ImageAlbum[];
 				reactions?: { [x: string]: string | null };
 			} = {};
-			console.log(objectToUpdate.newAlbum);
 			if (objectToUpdate.newSubtitle) {
 				updateData.subtitle = objectToUpdate.newSubtitle;
 			}

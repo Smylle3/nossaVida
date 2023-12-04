@@ -1,3 +1,7 @@
+.box {
+	position: relative;
+}
+
 .polaroid {
     background-color: var(--light-purple);
     box-sizing: border-box;

@@ -9,22 +9,24 @@
 .modalWebImage {
 	background-color: var(--light-purple);
 	box-sizing: border-box;
-
+	
 	border: 2px dotted var(--purple);
 	border-radius: 8px;
-	height: 60%;
+	height: 70%;
 	width: 100%;
 	padding: 1em;
-
+	
 	display: flex;
 	justify-content: center;
 }
 
 .modalWebDescription {
+	position: relative;
 	flex-wrap: wrap;
 	display: flex;
 	flex-direction: column;
-	max-height: 40%;
+	justify-content: space-between;
+	height: 30%;
 	gap: 1em;
 }
 
@@ -76,7 +78,9 @@
 .modalMobileDescription {
 	display: flex;
 	flex-direction: column;
-	max-height: 30%;
+	justify-content: space-between;
+	position: relative;
+	height: 30%;
 	gap: 1em;
 }
 
@@ -100,4 +104,15 @@
 
 .deleteButton {
 	visibility: visible;
+}
+
+.timeStamp {
+	display: flex;
+	width: 100%;
+	justify-content: space-between;
+}
+
+.badgeInner {
+	position: absolute;
+	top: 0;
 }
