@@ -114,7 +114,6 @@ export default function useFirestore() {
 			if (objectToUpdate.reactions) {
 				updateData.reactions = objectToUpdate.reactions;
 			}
-			console.log(updateData);
 			updateDoc(docRef, updateData);
 		} catch (error) {
 			return 'falied';

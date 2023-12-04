@@ -24,7 +24,6 @@ export default function PopoverReaction({
 	const position = -10;
 
 	const handleSelectReaction = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-		console.log(image);
 		if (!user || !user.email) return;
 		if (setOpen) setOpen(false);
 		const reaction = e.currentTarget.textContent;
