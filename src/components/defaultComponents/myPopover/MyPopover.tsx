@@ -1,18 +1,38 @@
 import { Popover } from 'antd';
-
-import { useApp } from '../../../hooks/useApp';
 import './MyPopover.css';
 
 interface MyPopoverProps {
-	title: string;
+	title?: string;
+	placement?:
+		| 'top'
+		| 'left'
+		| 'right'
+		| 'bottom'
+		| 'topLeft'
+		| 'topRight'
+		| 'bottomLeft'
+		| 'bottomRight'
+		| 'leftTop'
+		| 'leftBottom'
+		| 'rightTop'
+		| 'rightBottom';
 	children: React.ReactElement;
 	content: React.ReactElement;
+	open?: boolean;
+	trigger?: 'click' | 'hover';
+	setOpen?: (visible: boolean) => void;
 }
-export default function MyPopover({ title, children, content }: MyPopoverProps) {
-	const { isMobile } = useApp();
-
+export default function MyPopover({
+	title,
+	children,
+	content,
+	placement,
+	open,
+	setOpen,
+	trigger,
+}: MyPopoverProps) {
 	const popoverStyle: React.CSSProperties = {
-		width: isMobile ? '90%' : '30%',
+		width: 'fit-content',
 		color: '#845ec2',
 		backgroundColor: '#fdf7ff',
 	};
@@ -22,8 +42,11 @@ export default function MyPopover({ title, children, content }: MyPopoverProps) 
 			content={content}
 			title={title}
 			overlayStyle={popoverStyle}
-			trigger="click"
+			trigger={trigger ? trigger : 'click'}
 			color="#fdf7ff"
+			placement={placement ? placement : 'top'}
+			open={open}
+			onOpenChange={setOpen}
 		>
 			{children}
 		</Popover>

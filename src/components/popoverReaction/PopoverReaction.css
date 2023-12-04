@@ -1,0 +1,25 @@
+.reactionContainer {
+	width: 100%;
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+	font-size: large;
+}
+
+.anchorConfig {
+	border-radius: 3px;
+	padding: 0.5em 0;
+	box-sizing: border-box;
+}
+
+.emoji {
+	box-sizing: border-box;
+	padding: 0.2em;
+	border-radius: 10px;
+	border: 1px dotted transparent;
+	cursor: pointer;
+}
+
+.reacted {
+	border: 1px dotted var(--purple);
+}

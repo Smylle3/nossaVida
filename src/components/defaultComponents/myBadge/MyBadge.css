@@ -1,0 +1,18 @@
+.badgeButton {
+	box-shadow: 0 0 20px 0px var(--light-purple);
+	background-color: var(--purple);
+	position: absolute;
+	box-sizing: border-box;
+	cursor: default;
+	border-radius: 15% 0 0 15%;
+	padding: .1em .3em;
+	font-size: 2em;
+	z-index: 99;
+	top: -3em;
+	right: 0;
+}
+
+.reactText {
+	color: var(--purple);
+	width: fit-content;
+}

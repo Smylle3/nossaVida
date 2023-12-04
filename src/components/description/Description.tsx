@@ -8,7 +8,7 @@ import SimpleInput from '../defaultComponents/customInput/SimpleInput';
 
 interface DescriptionProps {
 	text: string;
-	title: string;
+	title?: string;
 	isEdit?: boolean;
 	id?: string;
 	typeValue: 'album' | 'description';
@@ -67,7 +67,7 @@ export default function Description({
 	return (
 		<div className="zoomSubTitle">
 			<div className="descTitle">
-				<span className="spanTitle">{title}</span>
+				{title && <span className="spanTitle">{title}</span>}
 				{isEdit ? (
 					<form className="inputAndButton" onSubmit={(e) => onSave(e)}>
 						<SimpleInput
@@ -90,7 +90,7 @@ export default function Description({
 						)}
 					</form>
 				) : (
-					<span>{text}</span>
+					<span className="descriptionContent">{text}</span>
 				)}
 			</div>
 		</div>

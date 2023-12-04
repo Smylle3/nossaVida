@@ -1,10 +1,6 @@
 .zoomSubTitle {
-    background-color: var(--light-purple);
     box-sizing: border-box;
-
-    border: 2px dotted var(--purple);
     border-radius: 4px;
-    padding: 1em 0.5em;
 }
 
 .descTitle {
@@ -25,4 +21,8 @@
 .saveDesc {
     position: inherit;
     visibility: visible;
+}
+
+.descriptionContent {
+	font-weight: bold;
 }

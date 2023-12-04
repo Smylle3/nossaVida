@@ -1,5 +1,5 @@
 .box {
-    z-index: 1;
+	position: relative;
 }
 
 .polaroid {
@@ -31,4 +31,8 @@
     background-color: var(--light-purple);
     color: var(--purple);
 	text-align: center;
+}
+
+.imageButton {
+	visibility: visible;
 }

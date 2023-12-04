@@ -14,12 +14,13 @@ import useFirestore from '../../../hooks/useFirestore';
 import MyDropDown from '../../defaultComponents/myDropDown/MyDropDown';
 import MyButton from '../../defaultComponents/myButton/MyButton';
 import DeleteImageModal from '../confirmModal/ConfirmModal';
+import PopoverReaction from '../../popoverReaction/PopoverReaction';
+import MyBadge from '../../defaultComponents/myBadge/MyBadge';
 
 interface ImageScreenModalProps {
 	openImage: boolean;
 	setOpenImage: React.Dispatch<React.SetStateAction<boolean>>;
 	image: Image;
-	lastModified: Date;
 	timestamp: Date;
 }
 
@@ -27,13 +28,19 @@ export default function ImageScreenModal({
 	openImage,
 	setOpenImage,
 	image,
-	lastModified,
 	timestamp,
 }: ImageScreenModalProps) {
 	const { isMobile } = useApp();
 	const { deleteImage } = useFirestore();
 	const [openDeleteModal, setOpenDeleteModal] = useState<boolean>(false);
 	const position = -10;
+	const formattedTimestamp = timestamp.toLocaleString('pt-BR', {
+		year: 'numeric',
+		month: 'numeric',
+		day: 'numeric',
+		hour: 'numeric',
+		minute: 'numeric',
+	});
 
 	return (
 		<MyModal openModal={openImage} setOpenModal={setOpenImage} footer>
@@ -44,19 +51,27 @@ export default function ImageScreenModal({
 							<ImageAntd src={image.imageUrl} className="mobileImage" />
 						</div>
 						<div className="modalMobileDescription">
-							<TagOnModalImage image={image} />
+							<MyBadge image={image} badgeInner />
+							<div className="timeStamp">
+								<Description
+									text={image.uploadBy?.split('@')[0] || ''}
+									title="Por "
+									typeValue="description"
+								/>
+								<Description
+									text={formattedTimestamp}
+									title="Dia "
+									typeValue="description"
+								/>
+							</div>
 							<Description
 								text={image.subtitle}
-								title="Descrição"
 								isEdit
 								id={image.id}
 								typeValue="description"
 							/>
-							<Description
-								text={timestamp.toLocaleString()}
-								title="Data de upload"
-								typeValue="description"
-							/>
+							<TagOnModalImage image={image} />
+							<PopoverReaction image={image} />
 						</div>
 					</div>
 				) : (
@@ -65,24 +80,27 @@ export default function ImageScreenModal({
 							<ImageAntd src={image.imageUrl} height="100%" />
 						</div>
 						<div className="modalWebDescription">
-							<TagOnModalImage image={image} />
+							<MyBadge image={image} badgeInner />
+							<div className="timeStamp">
+								<Description
+									text={image.uploadBy?.split('@')[0] || ''}
+									title="Por "
+									typeValue="description"
+								/>
+								<Description
+									text={formattedTimestamp}
+									title="Dia "
+									typeValue="description"
+								/>
+							</div>
 							<Description
 								text={image.subtitle}
-								title="Descrição:"
 								isEdit
 								id={image.id}
 								typeValue="description"
 							/>
-							<Description
-								text={lastModified.toLocaleString()}
-								title="Data da ultima alteração:"
-								typeValue="description"
-							/>
-							<Description
-								text={timestamp.toLocaleString()}
-								title="Data de upload:"
-								typeValue="description"
-							/>
+							<TagOnModalImage image={image} />
+							<PopoverReaction image={image} />
 						</div>
 					</div>
 				)}
@@ -129,7 +147,10 @@ function TagOnModalImage({ image }: TagOnModalImageProps) {
 		}
 		if (event === 'add' && currentImage.album) {
 			if (!currentImage.album.includes(albumToUpdate))
-				currentImage.album = [...(currentImage.album || []), albumToUpdate];
+				currentImage.album = [
+					...(currentImage.album || []),
+					{ id: albumToUpdate.id },
+				];
 		}
 		updateImage({ docName: image.id, newAlbum: currentImage.album });
 	};
