@@ -4,7 +4,7 @@ import { Navigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 
 interface PublicProps {
-	children: React.ReactElement
+	children: React.ReactElement;
 }
 export default function PublicRoutes({ children }: PublicProps) {
 	const { user } = useAuth();

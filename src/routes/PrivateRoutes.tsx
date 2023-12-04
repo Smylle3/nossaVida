@@ -4,7 +4,7 @@ import { Navigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 
 interface PrivateProps {
-	children: React.ReactElement
+	children: React.ReactElement;
 }
 export default function PrivateRoutes({ children }: PrivateProps) {
 	const { user } = useAuth();

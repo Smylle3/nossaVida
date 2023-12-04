@@ -6,6 +6,7 @@ import { Signup } from './pages/Signup';
 import { AuthProvider } from './context/authContext';
 import PublicRoutes from './routes/PublicRoutes';
 import PrivateRoutes from './routes/PrivateRoutes';
+import JodoDaVeiaDois from './pages/JodoDaVeiaDois';
 
 export default function App() {
 	return (
@@ -17,6 +18,14 @@ export default function App() {
 						element={
 							<PrivateRoutes>
 								<Home />
+							</PrivateRoutes>
+						}
+					/>
+					<Route
+						path="/jogo-da-veia-dois"
+						element={
+							<PrivateRoutes>
+								<JodoDaVeiaDois />
 							</PrivateRoutes>
 						}
 					/>
