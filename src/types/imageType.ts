@@ -11,5 +11,5 @@ export type Image = {
 	lastModifiedDate: number;
 	album: ImageAlbum[];
 	uploadAt: Timestamp;
-	reactions?: { [x: string]: string | null };
+	reactions: { [x: string]: string | null };
 };

@@ -11,3 +11,14 @@
 	padding: 0.5em 0;
 	box-sizing: border-box;
 }
+
+.emoji {
+	box-sizing: border-box;
+	padding: 0.2em;
+	border-radius: 10px;
+	border: 1px dotted transparent;
+}
+
+.reacted {
+	border: 1px dotted var(--purple);
+}
