@@ -28,6 +28,9 @@ export default function UploadForm() {
 	const [albumSelected, setAlbumSelected] = useState<ImageAlbum[]>([]);
 
 	const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		if (!e.target.files) {
+			setModalIsOpen(false), resetModal();
+		}
 		setWebModalIsOpen(false);
 		setModalIsOpen(true);
 		handleFile(e.target.files);
