@@ -14,12 +14,12 @@ import useFirestore from '../../../hooks/useFirestore';
 import MyDropDown from '../../defaultComponents/myDropDown/MyDropDown';
 import MyButton from '../../defaultComponents/myButton/MyButton';
 import DeleteImageModal from '../confirmModal/ConfirmModal';
+import { useAuth } from '../../../hooks/useAuth';
 
 interface ImageScreenModalProps {
 	openImage: boolean;
 	setOpenImage: React.Dispatch<React.SetStateAction<boolean>>;
 	image: Image;
-	lastModified: Date;
 	timestamp: Date;
 }
 
@@ -27,9 +27,9 @@ export default function ImageScreenModal({
 	openImage,
 	setOpenImage,
 	image,
-	lastModified,
 	timestamp,
 }: ImageScreenModalProps) {
+	const { user } = useAuth();
 	const { isMobile } = useApp();
 	const { deleteImage } = useFirestore();
 	const [openDeleteModal, setOpenDeleteModal] = useState<boolean>(false);
@@ -47,14 +47,19 @@ export default function ImageScreenModal({
 							<TagOnModalImage image={image} />
 							<Description
 								text={image.subtitle}
-								title="Descrição"
+								title="Descrição: "
 								isEdit
 								id={image.id}
 								typeValue="description"
 							/>
 							<Description
+								text={user?.email || ''}
+								title="Enviado por:"
+								typeValue="description"
+							/>
+							<Description
 								text={timestamp.toLocaleString()}
-								title="Data de upload"
+								title="Data de upload: "
 								typeValue="description"
 							/>
 						</div>
@@ -68,19 +73,19 @@ export default function ImageScreenModal({
 							<TagOnModalImage image={image} />
 							<Description
 								text={image.subtitle}
-								title="Descrição:"
+								title="Descrição: "
 								isEdit
 								id={image.id}
 								typeValue="description"
 							/>
 							<Description
-								text={lastModified.toLocaleString()}
-								title="Data da ultima alteração:"
+								text={user?.email || ''}
+								title="Enviado por: "
 								typeValue="description"
 							/>
 							<Description
 								text={timestamp.toLocaleString()}
-								title="Data de upload:"
+								title="Data de upload: "
 								typeValue="description"
 							/>
 						</div>

@@ -61,7 +61,6 @@ export default function CardImage({ image }: { image: Image; id: number }) {
 			</MyButton>
 			<ImageScreenModal
 				image={image}
-				lastModified={lastModified}
 				openImage={openImage}
 				setOpenImage={setOpenImage}
 				timestamp={timestamp}

@@ -9,7 +9,6 @@ export default function MiniImage({ image }: { image: Image }) {
 	const timestamp = new Date(
 		image.uploadAt.seconds * 1000 + image.uploadAt.nanoseconds / 1e6,
 	);
-	const lastModified = new Date(image.lastModifiedDate);
 
 	return (
 		<div className="mini" onClickCapture={() => setOpenImage(true)}>
@@ -19,7 +18,6 @@ export default function MiniImage({ image }: { image: Image }) {
 			/>
 			<ImageScreenModal
 				image={image}
-				lastModified={lastModified}
 				openImage={openImage}
 				setOpenImage={setOpenImage}
 				timestamp={timestamp}

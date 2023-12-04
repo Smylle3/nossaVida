@@ -8,7 +8,6 @@ export default function PolaroidImage({ image }: { image: Image; id: number }) {
 	const timestamp = new Date(
 		image.uploadAt.seconds * 1000 + image.uploadAt.nanoseconds / 1e6,
 	);
-	const lastModified = new Date(image.lastModifiedDate);
 	const [openImage, setOpenImage] = useState<boolean>(false);
 
 	return (
@@ -22,7 +21,6 @@ export default function PolaroidImage({ image }: { image: Image; id: number }) {
 			</div>
 			<ImageScreenModal
 				image={image}
-				lastModified={lastModified}
 				openImage={openImage}
 				setOpenImage={setOpenImage}
 				timestamp={timestamp}
