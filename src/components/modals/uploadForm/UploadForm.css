@@ -9,6 +9,12 @@
 	gap: 1em;
 }
 
+.formContainer {
+	display: flex;
+	flex-direction: column;
+	gap: 1em;
+}
+
 .dropImage {
 	width: 100%;
 	height: 100%;

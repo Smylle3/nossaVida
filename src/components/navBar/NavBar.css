@@ -110,6 +110,9 @@
 	background-color: var(--purple);
 	color: var(--background-color);
 	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .filterSelected {
