@@ -104,7 +104,7 @@ export default function useFirestore() {
 				album?: ImageAlbum[];
 				reactions?: { [x: string]: string | null };
 			} = {};
-
+			console.log(objectToUpdate.newAlbum);
 			if (objectToUpdate.newSubtitle) {
 				updateData.subtitle = objectToUpdate.newSubtitle;
 			}

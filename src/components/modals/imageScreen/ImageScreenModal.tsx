@@ -136,7 +136,10 @@ function TagOnModalImage({ image }: TagOnModalImageProps) {
 		}
 		if (event === 'add' && currentImage.album) {
 			if (!currentImage.album.includes(albumToUpdate))
-				currentImage.album = [...(currentImage.album || []), albumToUpdate];
+				currentImage.album = [
+					...(currentImage.album || []),
+					{ id: albumToUpdate.id },
+				];
 		}
 		updateImage({ docName: image.id, newAlbum: currentImage.album });
 	};

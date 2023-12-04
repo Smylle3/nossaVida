@@ -44,6 +44,7 @@ export default function useStorage() {
 					lastModifiedDate: file.lastModified,
 					album: albunsSelected,
 					uploadAt: new Date(),
+					reaction: {},
 				});
 				setLoading(-1);
 				setOpenModal(false);
