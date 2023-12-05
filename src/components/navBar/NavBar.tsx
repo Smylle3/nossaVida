@@ -1,6 +1,4 @@
-import { useState } from 'react';
 import { BsGrid3X3Gap, BsViewStacked, BsList, BsFilter } from 'react-icons/bs';
-import { MdAddToPhotos } from 'react-icons/md';
 import { IoLogOut } from 'react-icons/io5';
 import { signOut } from 'firebase/auth';
 import { message } from 'antd';
@@ -10,7 +8,6 @@ import { auth } from '../../firebase/config';
 import { useApp } from '../../hooks/useApp';
 import UploadForm from '../modals/uploadForm/UploadForm';
 import MyDropDown from '../defaultComponents/myDropDown/MyDropDown';
-import MyButton from '../defaultComponents/myButton/MyButton';
 import useFirestore from '../../hooks/useFirestore';
 import AlbumTag from '../albumTag/AlbumTag';
 
@@ -18,11 +15,6 @@ export default function NavBar() {
 	const { gridType, setGridType, isMobile, filterAlbumsSelected } = useApp();
 	const { albums } = useFirestore();
 	const [messageApi, contextHolder] = message.useMessage();
-	const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
-
-	const openModal = () => {
-		setModalIsOpen(true);
-	};
 
 	const logout = async () => {
 		try {
@@ -64,15 +56,9 @@ export default function NavBar() {
 								))
 							)}
 						</div>
-						<button className="logoutButton" onClick={openModal}>
-							<MdAddToPhotos size={20} />
-						</button>
 					</>
 				) : (
 					<>
-						<MyButton type="fixed" onClick={openModal}>
-							🥰 Guardar lembrança 🥰
-						</MyButton>
 						<div className="webNavbarOptions">
 							<div
 								className={`typeGrid ${gridType && 'gridSelected'}`}
@@ -114,7 +100,7 @@ export default function NavBar() {
 						</div>
 					</>
 				)}
-				<UploadForm modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} />
+				<UploadForm />
 				<h1 className="title">❤️ Nossa Vida ❤️</h1>
 			</div>
 			<div className="back" />
