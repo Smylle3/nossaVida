@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { BsGrid3X3Gap, BsViewStacked, BsList, BsFilter } from 'react-icons/bs';
+import { MdMenu } from 'react-icons/md';
 import { IoLogOut } from 'react-icons/io5';
 import { signOut } from 'firebase/auth';
 import { message } from 'antd';
@@ -71,7 +72,7 @@ export default function NavBar() {
 								className={`typeGrid`}
 								onClick={() => setOpenDrawer(true)}
 							>
-								<BsGrid3X3Gap size={25} />
+								<MdMenu size={25} />
 							</div>
 						</div>
 						<MyDrawer
