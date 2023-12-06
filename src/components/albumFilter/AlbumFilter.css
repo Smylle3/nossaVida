@@ -1,0 +1,14 @@
+.albumContainer {
+	flex-wrap: wrap;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	box-sizing: border-box;
+	gap: 0.5em;
+}
+
+.albumConfig {
+	visibility: visible;
+	right: 0em;
+	top: 0em;
+}

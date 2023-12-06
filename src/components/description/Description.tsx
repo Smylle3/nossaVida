@@ -11,7 +11,7 @@ interface DescriptionProps {
 	title?: string;
 	isEdit?: boolean;
 	id?: string;
-	typeValue: 'album' | 'description';
+	typeValue: 'album' | 'description' | 'user' | 'phone';
 	placeHolder?: string;
 }
 
@@ -23,7 +23,7 @@ export default function Description({
 	typeValue,
 	placeHolder,
 }: DescriptionProps) {
-	const { updateImage, updateAlbum, createAlbum } = useFirestore();
+	const { updateImage, updateAlbum, createAlbum, updateUser } = useFirestore();
 	const [value, setValue] = useState<string>(text);
 	const [isChanging, setIsChanging] = useState<boolean>(false);
 	const [isUploaded, setIsUploaded] = useState<boolean>(false);
@@ -55,6 +55,12 @@ export default function Description({
 			if (typeValue === 'album' && !id) {
 				await createAlbum(value);
 				setValue(text);
+			}
+			if (typeValue === 'user') {
+				await updateUser({ displayName: value });
+			}
+			if (typeValue === 'phone') {
+				await updateUser({ phoneNumber: value });
 			}
 		} catch (error) {
 			console.log(error);

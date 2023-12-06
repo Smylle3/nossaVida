@@ -23,18 +23,3 @@
 
 	border-radius: 5px;
 }
-
-.albumContainer {
-	flex-wrap: wrap;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	box-sizing: border-box;
-	gap: 0.5em;
-}
-
-.albumConfig {
-	visibility: visible;
-	right: 0.5em;
-	top: 0.5em;
-}

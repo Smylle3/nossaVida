@@ -22,9 +22,8 @@ export default function PopoverReaction({
 	image,
 }: PopoverReactionProps) {
 	const { user } = useAuth();
-	const { updateImage } = useFirestore();
+	const { updateImage, myUser } = useFirestore();
 	const position = -10;
-	const emojis = ['😍', '😢', '😂', '👍', '👎'];
 	const userReaction = user?.email ? image.reactions?.[user.email] : '';
 	const [isReacted, setIsReacted] = useState<boolean>(false);
 
@@ -46,7 +45,7 @@ export default function PopoverReaction({
 
 	const ReactionContent = (
 		<div className={`reactionContainer ${!anchor && 'anchorConfig'}`}>
-			{emojis.map((emoji, index) => (
+			{myUser?.emojis.map((emoji, index) => (
 				<div
 					key={index}
 					onClick={() => handleSelectReaction(emoji)}
