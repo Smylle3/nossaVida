@@ -42,7 +42,7 @@ export default function MyPopover({
 
 	return (
 		<Popover
-			content={open && content} // only render content if open
+			content={content}
 			title={title}
 			overlayStyle={popoverStyle}
 			trigger={trigger ? trigger : 'click'}
