@@ -42,7 +42,7 @@
 	flex-wrap: wrap;
 }
 
-.webNavbarOptions {
+.navbarOptions {
 	position: absolute;
 	display: flex;
 	color: var(--pink);

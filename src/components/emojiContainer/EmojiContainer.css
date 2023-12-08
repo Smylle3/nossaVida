@@ -3,3 +3,7 @@
 	flex-direction: column;
 	gap: 1em;
 }
+
+.emojiSelected {
+	background-color: var(--light-purple);
+}

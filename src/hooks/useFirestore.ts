@@ -3,9 +3,11 @@ import {
 	collection,
 	deleteDoc,
 	doc,
+	getDoc,
 	onSnapshot,
 	orderBy,
 	query,
+	setDoc,
 	updateDoc,
 } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
@@ -71,16 +73,26 @@ export default function useFirestore() {
 				});
 
 				if (user.email) {
-					unsubscribe = onSnapshot(
-						doc(db, collectionName.user, user.email),
-						(doc) => {
-							const userFromDoc: MyUser = {
-								email: doc?.data()?.email,
-								emojis: doc?.data()?.emojis,
-							};
-							setMyUser(userFromDoc);
-						},
-					);
+					const docRef = doc(db, collectionName.user, user.email);
+					const docSnap = await getDoc(docRef);
+
+					if (docSnap.exists()) {
+						unsubscribe = onSnapshot(
+							doc(db, collectionName.user, user.email),
+							(doc) => {
+								const userFromDoc: MyUser = {
+									email: doc?.data()?.email,
+									emojis: doc?.data()?.emojis,
+								};
+								setMyUser(userFromDoc);
+							},
+						);
+					} else {
+						await setDoc(doc(db, collectionName.user, user.email), {
+							email: user.email,
+							emojis: ['😍', '❤️', '😂', '😢', '👍'],
+						});
+					}
 				}
 			} catch (error) {
 				messageApi.open({
@@ -189,13 +201,10 @@ export default function useFirestore() {
 
 		updateDoc(docRef, {
 			emojis: emojis,
-		})
-			.then(() => {
-				return 'sucess';
-			})
-			.catch(() => {
-				return 'falied';
-			});
+		}).catch(() => {
+			return 'falied';
+		});
+		return 'sucess';
 	};
 
 	const updateUser = async (objectToUpdate: {

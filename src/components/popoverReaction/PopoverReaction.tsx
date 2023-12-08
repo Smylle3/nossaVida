@@ -45,7 +45,7 @@ export default function PopoverReaction({
 
 	const ReactionContent = (
 		<div className={`reactionContainer ${!anchor && 'anchorConfig'}`}>
-			{myUser?.emojis.map((emoji, index) => (
+			{myUser?.emojis?.map((emoji, index) => (
 				<div
 					key={index}
 					onClick={() => handleSelectReaction(emoji)}

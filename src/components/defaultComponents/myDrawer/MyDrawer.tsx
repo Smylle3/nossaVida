@@ -1,4 +1,5 @@
 import { Drawer } from 'antd';
+import './MyDrawer.css';
 
 interface MyDrawerProps {
 	title: string;
