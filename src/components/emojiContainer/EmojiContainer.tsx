@@ -57,7 +57,10 @@ export default function EmojiContainer() {
 				))}
 			</div>
 			{clickedEmojiIndex !== null && (
-				<EmojiPicker onEmojiClick={(e) => emojiChanges(e)} />
+				<EmojiPicker
+					autoFocusSearch={false}
+					onEmojiClick={(e) => emojiChanges(e)}
+				/>
 			)}
 		</div>
 	);
