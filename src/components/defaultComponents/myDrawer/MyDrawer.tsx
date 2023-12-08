@@ -1,4 +1,5 @@
 import { Drawer } from 'antd';
+import './MyDrawer.css';
 
 interface MyDrawerProps {
 	title: string;
@@ -12,7 +13,16 @@ export default function MyDrawer({ title, open, setOpen, children }: MyDrawerPro
 	};
 
 	return (
-		<Drawer title={title} placement="right" onClose={onClose} open={open}>
+		<Drawer
+			styles={{
+				body: { boxSizing: 'border-box', padding: '1em' },
+				content: { width: 'fit-content', padding: 0 },
+			}}
+			title={title}
+			placement="right"
+			onClose={onClose}
+			open={open}
+		>
 			{children}
 		</Drawer>
 	);

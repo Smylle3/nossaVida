@@ -42,7 +42,7 @@
 	flex-wrap: wrap;
 }
 
-.webNavbarOptions {
+.navbarOptions {
 	position: absolute;
 	display: flex;
 	color: var(--pink);
@@ -55,14 +55,25 @@
 .typeGrid {
 	display: flex;
 	align-items: center;
+	box-sizing: border-box;
+	cursor: pointer;
 	color: var(--pink);
 	border-radius: 5px;
-	padding: 0.1em .2em;
+	gap: 1em;
+	padding: 0.5em;
 	transition: all 0.25s;
 }
 
 .typeGrid:hover {
 	background-color: var(--pink-transparent);
+}
+
+.drawerContainer {
+	display: flex;
+	flex-direction: column;
+	box-sizing: border-box;
+	gap: 1em;
+	color: var(--pink);
 }
 
 .gridSelected {
@@ -124,4 +135,9 @@
 	top: 100%;
 	gap: .25em;
 	margin-top: .5em;
+}
+
+.emojiContainer {
+	display: flex;
+	justify-content: space-evenly;
 }

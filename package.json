@@ -12,6 +12,7 @@
     },
     "dependencies": {
         "antd": "^5.11.5",
+        "emoji-picker-react": "^4.5.16",
         "firebase": "^10.6.0",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",

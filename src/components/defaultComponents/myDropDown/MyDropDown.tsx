@@ -1,6 +1,5 @@
-import { useState } from 'react';
 import './MyDropDown.css';
-import { MdLogout, MdSettings } from 'react-icons/md';
+import { MdLogout } from 'react-icons/md';
 import { BsGrid3X3Gap, BsViewStacked } from 'react-icons/bs';
 import { signOut } from 'firebase/auth';
 import { message } from 'antd';
@@ -11,8 +10,7 @@ import MyPopover from '../myPopover/MyPopover';
 import AlbumTag from '../../albumTag/AlbumTag';
 import { Album } from '../../../types/albumsType';
 import useFirestore from '../../../hooks/useFirestore';
-import MyButton from '../myButton/MyButton';
-import AlbumConfig from '../../modals/albumConfig/AlbumConfig';
+import AlbumFilter from '../../albumFilter/AlbumFilter';
 
 interface MyDropDownProps {
 	children: React.ReactElement;
@@ -31,11 +29,9 @@ export default function MyDropDown({
 	title,
 	clickFunction,
 }: MyDropDownProps) {
-	const { gridType, setGridType, filterAlbumsSelected, setFilterAlbumsSelected } =
-		useApp();
+	const { gridType, setGridType } = useApp();
 	const { deleteAlbum } = useFirestore();
 	const [messageApi] = message.useMessage();
-	const [modalConfig, setModalConfig] = useState<boolean>(false);
 
 	const logout = async () => {
 		try {
@@ -54,17 +50,6 @@ export default function MyDropDown({
 			type: 'success',
 			content: `Álbum deletado com sucesso!`,
 		});
-	};
-
-	const setAlbumFilter = (album: Album) => {
-		const hasBeenSelected = filterAlbumsSelected.find((item) => item.id === album.id);
-		if (hasBeenSelected) {
-			setFilterAlbumsSelected(
-				filterAlbumsSelected.filter((item) => item.id !== album.id),
-			);
-		} else {
-			setFilterAlbumsSelected((prev) => [...prev, album]);
-		}
 	};
 
 	if (type === 'menu')
@@ -102,38 +87,10 @@ export default function MyDropDown({
 			<div className={`selectGrid ${iconPosition}`}>
 				<MyPopover
 					title={title ? title : 'Filtro de álbuns'}
-					content={
-						<div className="albumContainer">
-							{albums.map((album) => (
-								<AlbumTag
-									type="oldAlbum"
-									album={album}
-									key={album.id}
-									onClose={() => handleDelete(album)}
-									onClick={() => setAlbumFilter(album)}
-									colorTag={`${
-										filterAlbumsSelected.find(
-											(item) => item.id === album.id,
-										)
-											? '#845ec2'
-											: 'purple'
-									}`}
-								/>
-							))}
-							<AlbumTag type="newAlbum" />
-							<MyButton
-								type="edge"
-								className="albumConfig"
-								onClick={() => setModalConfig(true)}
-							>
-								<MdSettings />
-							</MyButton>
-						</div>
-					}
+					content={<AlbumFilter />}
 				>
 					{children}
 				</MyPopover>
-				<AlbumConfig modalConfig={modalConfig} setModalConfig={setModalConfig} />
 			</div>
 		);
 	else if (type === 'setFilter' && albums && clickFunction)

@@ -21,6 +21,7 @@ interface MyPopoverProps {
 	open?: boolean;
 	trigger?: 'click' | 'hover';
 	setOpen?: (visible: boolean) => void;
+	backgroundColor?: string;
 }
 export default function MyPopover({
 	title,
@@ -30,11 +31,13 @@ export default function MyPopover({
 	open,
 	setOpen,
 	trigger,
+	backgroundColor,
 }: MyPopoverProps) {
 	const popoverStyle: React.CSSProperties = {
 		width: 'fit-content',
 		color: '#845ec2',
-		backgroundColor: '#fdf7ff',
+		backgroundColor: backgroundColor ? backgroundColor : '#fdf7ff',
+		borderRadius: '20px',
 	};
 
 	return (
@@ -43,7 +46,7 @@ export default function MyPopover({
 			title={title}
 			overlayStyle={popoverStyle}
 			trigger={trigger ? trigger : 'click'}
-			color="#fdf7ff"
+			color={backgroundColor ? backgroundColor : '#fdf7ff'}
 			placement={placement ? placement : 'top'}
 			open={open}
 			onOpenChange={setOpen}

@@ -18,6 +18,11 @@
 	border-radius: 10px;
 	border: 1px dotted transparent;
 	cursor: pointer;
+	transition: all .5s;
+}
+
+.emoji:hover {
+	background-color: var(--pink-transparent);
 }
 
 .reacted {

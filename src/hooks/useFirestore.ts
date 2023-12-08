@@ -3,26 +3,31 @@ import {
 	collection,
 	deleteDoc,
 	doc,
+	getDoc,
 	onSnapshot,
 	orderBy,
 	query,
+	setDoc,
 	updateDoc,
 } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { deleteObject, ref } from 'firebase/storage';
 import { message } from 'antd';
+import { sendEmailVerification, updateProfile } from 'firebase/auth';
 
-import { db, storage } from '../firebase/config';
+import { auth, db, storage } from '../firebase/config';
 import { Image } from '../types/imageType';
 import { useAuth } from './useAuth';
 import { Album, ImageAlbum } from '../types/albumsType';
 import { collectionName } from './../types/collectionNames';
+import { MyUser } from '../types/myUserType';
 
 export default function useFirestore() {
 	const { user } = useAuth();
 	const [messageApi] = message.useMessage();
 	const [docs, setDocs] = useState<Image[]>([]);
 	const [albums, setAlbums] = useState<Album[]>([]);
+	const [myUser, setMyUser] = useState<MyUser>();
 	const [isLoading, setIsLoading] = useState<boolean>(true);
 
 	useEffect(() => {
@@ -66,6 +71,29 @@ export default function useFirestore() {
 					});
 					setAlbums(albums);
 				});
+
+				if (user.email) {
+					const docRef = doc(db, collectionName.user, user.email);
+					const docSnap = await getDoc(docRef);
+
+					if (docSnap.exists()) {
+						unsubscribe = onSnapshot(
+							doc(db, collectionName.user, user.email),
+							(doc) => {
+								const userFromDoc: MyUser = {
+									email: doc?.data()?.email,
+									emojis: doc?.data()?.emojis,
+								};
+								setMyUser(userFromDoc);
+							},
+						);
+					} else {
+						await setDoc(doc(db, collectionName.user, user.email), {
+							email: user.email,
+							emojis: ['😍', '❤️', '😂', '😢', '👍'],
+						});
+					}
+				}
 			} catch (error) {
 				messageApi.open({
 					type: 'error',
@@ -165,14 +193,72 @@ export default function useFirestore() {
 		await deleteDoc(doc(db, 'albums', albumInfos?.id));
 	};
 
+	/******************************************************************************************************/
+
+	const updateUserEmoji = async (emojis: string[]) => {
+		if (!user?.email) return;
+		const docRef = doc(db, collectionName.user, user?.email);
+
+		updateDoc(docRef, {
+			emojis: emojis,
+		}).catch(() => {
+			return 'falied';
+		});
+		return 'sucess';
+	};
+
+	const updateUser = async (objectToUpdate: {
+		displayName?: string;
+		phoneNumber?: string;
+	}) => {
+		if (!auth?.currentUser) return;
+
+		try {
+			const updateData: {
+				displayName?: string;
+				phoneNumber?: string;
+			} = {};
+
+			if (objectToUpdate.displayName) {
+				updateData.displayName = objectToUpdate.displayName;
+			}
+			if (objectToUpdate.phoneNumber) {
+				updateData.phoneNumber = objectToUpdate.phoneNumber;
+			}
+			updateProfile(auth.currentUser, updateData);
+		} catch {
+			(err: Error) => {
+				console.log(err);
+			};
+		}
+	};
+
+	const emailVerification = async () => {
+		if (!auth?.currentUser) return;
+
+		try {
+			sendEmailVerification(auth.currentUser);
+		} catch {
+			(err: Error) => {
+				console.log(err);
+			};
+		}
+	};
+
+	/******************************************************************************************************/
+
 	return {
 		docs,
 		albums,
+		myUser,
 		isLoading,
 		deleteImage,
 		updateImage,
 		createAlbum,
 		updateAlbum,
 		deleteAlbum,
+		updateUserEmoji,
+		updateUser,
+		emailVerification,
 	};
 }
