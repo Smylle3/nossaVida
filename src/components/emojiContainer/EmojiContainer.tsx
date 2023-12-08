@@ -5,14 +5,18 @@ import { message } from 'antd';
 import useFirestore from '../../hooks/useFirestore';
 import './EmojiContainer.css';
 
-export default function EmojiContainer() {
+export default function EmojiContainer({ isDrawerOpen }: { isDrawerOpen: boolean }) {
 	const { myUser, updateUserEmoji } = useFirestore();
 	const [messageApi, contextHolder] = message.useMessage();
 	const [clickedEmojiIndex, setClickedEmojiIndex] = useState<number | null>(null);
 	const [emojiSelected, setEmojiSelected] = useState<string | null>(null);
 
+	console.log(isDrawerOpen);
 	const handleClickEmoji = (index: number | null) => {
-		if (index === clickedEmojiIndex) return;
+		if (index === clickedEmojiIndex) {
+			setClickedEmojiIndex(null);
+			return;
+		}
 		setClickedEmojiIndex(index);
 		setEmojiSelected(null);
 	};
@@ -22,6 +26,10 @@ export default function EmojiContainer() {
 	};
 
 	useEffect(() => {
+		if (!isDrawerOpen) {
+			setClickedEmojiIndex(null);
+			setEmojiSelected(null);
+		}
 		const handleEmojiChange = async () => {
 			if (clickedEmojiIndex !== null && emojiSelected) {
 				const newEmojis = [...(myUser?.emojis || [])];
@@ -38,7 +46,14 @@ export default function EmojiContainer() {
 			}
 		};
 		handleEmojiChange();
-	}, [clickedEmojiIndex, emojiSelected, messageApi, myUser?.emojis, updateUserEmoji]);
+	}, [
+		clickedEmojiIndex,
+		emojiSelected,
+		isDrawerOpen,
+		messageApi,
+		myUser?.emojis,
+		updateUserEmoji,
+	]);
 
 	return (
 		<div className="emojiContainer">

@@ -62,7 +62,7 @@ export default function NavBar() {
 						</DrawerContent>
 						<div className="line" />
 						<DrawerContent title="Emojis">
-							<EmojiContainer />
+							<EmojiContainer isDrawerOpen={openDrawer} />
 						</DrawerContent>
 						<div className="line" />
 						<DrawerContent title="Configurações de usuário">
