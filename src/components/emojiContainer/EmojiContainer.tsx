@@ -11,7 +11,6 @@ export default function EmojiContainer({ isDrawerOpen }: { isDrawerOpen: boolean
 	const [clickedEmojiIndex, setClickedEmojiIndex] = useState<number | null>(null);
 	const [emojiSelected, setEmojiSelected] = useState<string | null>(null);
 
-	console.log(isDrawerOpen);
 	const handleClickEmoji = (index: number | null) => {
 		if (index === clickedEmojiIndex) {
 			setClickedEmojiIndex(null);
