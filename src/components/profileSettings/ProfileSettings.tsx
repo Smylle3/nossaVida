@@ -3,13 +3,13 @@ import { Button } from 'antd';
 import { signOut } from 'firebase/auth';
 import { MdLogout } from 'react-icons/md';
 
-//import { useAuth } from '../../hooks/useAuth';
+import { useAuth } from '../../hooks/useAuth';
 import './ProfileSettings.css';
 //import Description from '../description/Description';
 import { auth } from '../../firebase/config';
 
 export default function ProfileSettings() {
-	//const { user } = useAuth();
+	const { user } = useAuth();
 
 	const logout = async () => {
 		try {
@@ -21,11 +21,11 @@ export default function ProfileSettings() {
 
 	return (
 		<div className="profileContainer">
-			{/*<Avatar src={user?.photoURL} size={100} />
 			<p>
 				{user?.email}{' '}
-				{user?.emailVerified ? <MdVerified /> : <Button>Verificar Email</Button>}
+				{/*{user?.emailVerified ? <MdVerified /> : <Button>Verificar Email</Button>}*/}
 			</p>
+			{/*<Avatar src={user?.photoURL} size={100} />
 			<Description
 				text={user?.displayName || ''}
 				title="Nome de usuário"
